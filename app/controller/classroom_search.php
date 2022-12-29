@@ -10,7 +10,7 @@
 </head>
 
 <?php
-    // $course = array("" => "", "LT" => "Lập trình", "VE" => "Vẽ", "AN" => "Âm nhạc");
+    $course = array("" => "", "LT" => "Lập trình", "VE" => "Vẽ", "AN" => "Âm nhạc");
     // $server_name="localhost";
 
     // $username="root";
@@ -77,7 +77,7 @@
             <p>Số môn học tìm thấy XXX</p>
         </div>
 
-        <div class='list_student'>
+        <div class='list_course'>
             <table style="width:100%">
                 <!-- <colgroup>
                     <col span="1" style="width: 5%;">
