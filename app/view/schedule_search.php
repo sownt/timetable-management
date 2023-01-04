@@ -96,7 +96,6 @@
         margin-top: 20px;
     }
 </style>
-
 <body>
     <form method="post" action="">
         <fieldset>
@@ -183,7 +182,7 @@
                         <td>Thứ 2</td>
                         <td>1,2</td>
                         <td> <input type="submit" name="search" class="action" value="Sửa"> </td>
-                        <td> <input type="submit" name="search" class="action" value="Xóa"> </td>
+                        <td> <input type="submit" name="delete" class="action" value="Xóa" onclick="return confirm('Bạn chắc chắn muón xóa thời khóa biểu ?')"> </td>
                     </tr>
                     <tr>
                         <td>2</td>
@@ -193,7 +192,7 @@
                         <td>Thứ 3</td>
                         <td>3,6</td>
                         <td> <input type="submit" name="search" class="action" value="Sửa"> </td>
-                        <td> <input type="submit" name="search" class="action" value="Xóa"> </td>
+                        <td> <input type="submit" name="delete" class="action" value="Xóa" onclick="return confirm('Bạn chắc chắn muón xóa thời khóa biểu ?')"> </td>
                     </tr>
                     <tr>
                         <td>3</td>
@@ -203,7 +202,7 @@
                         <td>Thứ 4</td>
                         <td>1,2,3,4,5</td>
                         <td> <input type="submit" name="search" class="action" value="Sửa"> </td>
-                        <td> <input type="submit" name="search" class="action" value="Xóa"> </td>
+                        <td> <input type="submit" name="delete" class="action" value="Xóa" onclick="return confirm('Bạn chắc chắn muón xóa thời khóa biểu ?')"> </td>
 
                     </tr>
                     <tr>
@@ -214,7 +213,7 @@
                         <td>Thứ 5</td>
                         <td>6,7</td>
                         <td> <input type="submit" name="search" class="action" value="Sửa"> </td>
-                        <td> <input type="submit" name="search" class="action" value="Xóa"> </td>
+                        <td> <input type="submit" name="delete" class="action" value="Xóa" onclick="return confirm('Bạn chắc chắn muón xóa thời khóa biểu ?')"> </td>
 
 
                     </tr>
