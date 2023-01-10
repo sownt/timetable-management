@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New lecture</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-</head>
-
 <body>
-    <div class="container">
+    <?php include_once('app/views/header.php'); ?>
+    <div class="container p-5">
         <form>
+            <div class="text-center mb-5"><h1>Đăng ký môn học</h1></div>
             <div class="row mb-3">
                 <label for="lectureName" class="col-sm-2 col-form-label">Tên môn học</label>
                 <div class="col-sm-10">
@@ -48,6 +38,5 @@
             </div>
         </form>
     </div>
+    <?php include_once('app/views/footer.php'); ?>
 </body>
-
-</html>

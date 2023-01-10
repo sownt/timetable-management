@@ -64,12 +64,12 @@ if(isset($_GET['id']))
 <head>
     <title>Trường học</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="web/css/style.css">
 </head>
 <body>
     <div class="header">
         <div class="logo">
-            <a href="index.php"><img src="images/logo.png"></a>
+            <a href="index.php"><img src="web/images/logo.png"></a>
         </div>
         <div class="menu">
             <ul>

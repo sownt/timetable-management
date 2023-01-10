@@ -1,5 +1,8 @@
 <?php
-require_once('../common/define.php');
+// require_once('../common/define.php');
+$YEAR = array("1", "2", "3", "4");
+$WEEK_DAY = array("2", "3", "4", "5", "6", "7", "8");
+$LESSION = array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
 $subject = array("001" => "Hải Dương Học", "002" => "Khoa Học Máy Tính", "003" => "Khoa Học Dữ Liệu");
 $teachers = array("001" => "Hoang Nghia Phong", "002" => "Dinh Trong Phuc", "003" => "Hoang Ha Giang");
 $edit = false;

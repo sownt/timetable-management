@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel='stylesheet' href='../../app/common/classroom_search_style.css'>
+    <link rel='stylesheet' href='../../web/css/lecture_search.css'>
 </head>
 
 <?php

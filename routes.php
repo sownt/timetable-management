@@ -1,14 +1,31 @@
 <?php
 $controllers = array(
-    'pages' => []
+    'auth' => ['login', 'reset', 'request'],
+    'home' => ['display', 'error'],
+    'lecture' => ['search', 'register', 'update'],
+    'schedule' => ['search', 'register', 'update'],
+    'teacher' => ['search', 'register', 'update'],
 );
 
-$controller = 'pages';
-$action = 'home';
+if (isset($_GET['controller'])) {
+    $controller = $_GET['controller'];
+    if (isset($_GET['action'])) {
+        $action = $_GET['action'];
+    } else {
+        $action = 'display';
+    }
+} else {
+    $controller = 'home';
+    $action = 'display';
+}
 
-include_once('controllers/' . $controller . '_controller.php');
+if (!array_key_exists($controller, $controllers) || !in_array($action, $controllers[$controller])) {
+    $controller = 'pages';
+    $action = 'error';
+};
 
-$class = str_replace('_', '', ucwords($controller, '_')) . 'Controller';
-$instance = new $class;
+include_once('app/controllers/' . $controller . '_controller.php');
+
+$t = str_replace('_', '', ucwords($controller, '_')) . 'Controller';
+$instance = new $t;
 $instance->$action();
-?>

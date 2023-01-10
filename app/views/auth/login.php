@@ -2,8 +2,6 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
     <style>
@@ -270,12 +268,12 @@
                         <input id="rememberMe" type="checkbox">
                         <label for="rememberMe">Remember Me</label>
                     </div>
-                    <a class="forgot pull-right" href="#">Forgot Password?</a>
+                    <a class="forgot pull-right" href="./?controller=auth&action=request">Forgot Password?</a>
                 </div>
             </form>
         </div>
         <div class="signup-wrapper text-center">
-            <a href="#"><i>Don't have an account? </i><span class="text-primary">Create One</span></a>
+            <a href="#"><i>Don't have an account?</i><span class="text-primary">Create One</span></a>
         </div>
     </div>
 
