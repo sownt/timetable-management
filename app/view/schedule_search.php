@@ -6,96 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="schedule_confirm" href="/web/css/schedule_confirm.css">
 </head>
-<style>
-    fieldset {
-        width: 470px;
-        margin: 12%;
-        margin-left: 32%;
-        border: 1px solid#4eb6c8;
-    }
-
-    .username {
-        background-color: #4eb6c8;
-        color: azure;
-        padding: 10px 20px;
-        margin-right: 25px;
-        width: 100px;
-        text-align: center;
-        border: 1px solid #4eb6c8
-    }
-
-    .text {
-        border: 1px solid #4eb6c8;
-        padding: 10px;
-        width: 278px;
-    }
-
-    .apartment {
-        margin-top: 20px;
-
-    }
-
-    .course {
-        width: 300px;
-        border: 1px solid #4eb6c8;
-    }
-    .subject{
-        width: 300px;
-        border: 1px solid #4eb6c8;
-    }
-    .teacher{
-        width: 300px;
-        border: 1px solid #4eb6c8;
-    }
-
-    .button {
-        margin-left: 40%;
-        width: 100px;
-        margin-top: 30px;
-        height: 30px;
-        background-color: #4eb6c8;
-        border: 1px solid #6aebf7;
-        border-radius: 5px;
-        color: white;
-        transition-duration: 0.4s;
-
-    }
-
-    .action {
-        width: 50px;
-        margin-top: 10px;
-        height: 30px;
-        background-color: #4eb6c8;
-        border: 1px solid #6aebf7;
-        color: white;
-        transition-duration: 0.4s;
-
-    }
-
-    .button:hover {
-        opacity: 0.8;
-    }
-
-    .style {
-        display: flex;
-    }
-
-    .text {
-        border: 1px solid #4eb6c8;
-    }
-
-    .table {
-        margin-top: 30px;
-        border-collapse: separate;
-        border-spacing: 30px 20px;
-        width: 100%;
-    }
-
-    .search {
-        margin-top: 20px;
-    }
-</style>
 <body>
     <form method="post" action="">
         <fieldset>
@@ -182,7 +94,7 @@
                         <td>Thứ 2</td>
                         <td>1,2</td>
                         <td> <input type="submit" name="search" class="action" value="Sửa"> </td>
-                        <td> <input type="submit" name="delete" class="action" value="Xóa" onclick="return confirm('Bạn chắc chắn muón xóa thời khóa biểu ?')"> </td>
+                        <td> <input type="submit" name="delete" class="action" value="Xóa" onclick="return confirm('Bạn chắc chắn muốn xóa thời khóa biểu ?')"> </td>
                     </tr>
                     <tr>
                         <td>2</td>
@@ -192,7 +104,7 @@
                         <td>Thứ 3</td>
                         <td>3,6</td>
                         <td> <input type="submit" name="search" class="action" value="Sửa"> </td>
-                        <td> <input type="submit" name="delete" class="action" value="Xóa" onclick="return confirm('Bạn chắc chắn muón xóa thời khóa biểu ?')"> </td>
+                        <td> <input type="submit" name="delete" class="action" value="Xóa" onclick="return confirm('Bạn chắc chắn muốn xóa thời khóa biểu ?')"> </td>
                     </tr>
                     <tr>
                         <td>3</td>
@@ -202,7 +114,7 @@
                         <td>Thứ 4</td>
                         <td>1,2,3,4,5</td>
                         <td> <input type="submit" name="search" class="action" value="Sửa"> </td>
-                        <td> <input type="submit" name="delete" class="action" value="Xóa" onclick="return confirm('Bạn chắc chắn muón xóa thời khóa biểu ?')"> </td>
+                        <td> <input type="submit" name="delete" class="action" value="Xóa" onclick="return confirm('Bạn chắc chắn muốn xóa thời khóa biểu ?')"> </td>
 
                     </tr>
                     <tr>
@@ -214,6 +126,18 @@
                         <td>6,7</td>
                         <td> <input type="submit" name="search" class="action" value="Sửa"> </td>
                         <td> <input type="submit" name="delete" class="action" value="Xóa" onclick="return confirm('Bạn chắc chắn muón xóa thời khóa biểu ?')"> </td>
+
+
+                    </tr>
+                </table>
+            </div>
+            </div>
+    </form>
+    </fieldset>
+</body>
+
+</html>
+
 
 
                     </tr>
