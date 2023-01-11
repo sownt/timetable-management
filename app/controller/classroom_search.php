@@ -36,7 +36,7 @@
         
 ?>
 <body>
-    <form method='post' action='../../app/controller/classroom_search.php' enctype='multipart/form-data'>
+    <form method='get' action='../../app/controller/classroom_search.php' name=''>
     <div class="fieldset" style = "width: 600px;
                                 height: 520px;
                                 padding-left: 15px;
@@ -71,67 +71,72 @@
                     </td>
                 </tr>
             </table>
-            <button name='search' value='search' onClick="../../app/controller/classroom_search.php">Tìm kiếm</button>
+            <button name='submit' value='submit'>Tìm kiếm</button>
         </div>
             
         
         <?php
-            $key = isset($_GET['key']) ? $_GET['key'] : '';
-            $search_string = "SELECT * FROM subject WHERE ";
-            $display_words = "";
+            if (isset($_GET['key']) ? $_GET['key'] : ''){
+                $key = trim($_GET['key']);
+                print($key);
+                $search_string = "SELECT * FROM subject WHERE ";
+                $display_words = "";
+        
+                $search_string .= "description LIKE '%$key%' OR school_year LIKE '%$key%' OR name LIKE '%$key%'";
+        
+                // run the query in the db and search through each of the records returned
+                $query = mysqli_query($conn, $search_string);
+                $result_count = mysqli_num_rows($query);
     
-            $search_string .= "description LIKE '%$key%' OR school_year LIKE '%$key%' OR name LIKE '%$key%'";
+                echo "
+                <div class ='result'>
+                    <p>Số môn học tìm thấy: ".$result_count."</p>
+                </div>
+                ";
     
-            // run the query in the db and search through each of the records returned
-            $query = mysqli_query($conn, $search_string);
-            $check = mysqli_fetch_row($query);
-
-            echo "
-            <div class ='result'>
-                <p>Số môn học tìm thấy:</p>
-            </div>
-            ";
-
-            if (isset($check)){
-            
-                echo"
-                    <table style='width:100%'>
-                    <!-- <colgroup>
-                        <col span='1' style='width: 5%;'>
-                        <col span='1' style='width: 28%;'>
-                        <col span='1' style='width: 37%;'>
-                        <col span='1' style='width: 40%;'>
-                    </colgroup> -->
-                    <tr>
-                        <th style='10%'>No</th>
-                        <th>Tên môn học</th>
-                        <th style='10%'>Khóa</th>
-                        <th>Mô tả chi tiết</th>
-                        <th style='40%'>Action</th>
-                    </tr>";
-                    while ($row = mysqli_fetch_assoc($query)){
-                        $id = $row["id"];
-                        $name = $row["name"];
-                        $school_year = $row["school_year"];
-                        $description = $row["description"];
-                        echo
-                        "
+                if ($result_count > 0){
+                
+                    echo"
+                        <table style='width:100%'>
+                        <!-- <colgroup>
+                            <col span='1' style='width: 5%;'>
+                            <col span='1' style='width: 28%;'>
+                            <col span='1' style='width: 37%;'>
+                            <col span='1' style='width: 40%;'>
+                        </colgroup> -->
                         <tr>
-                            <td>".$id."</td>
-                            <td>".$name."</td>
-                            <td>".$school_year."</td>
-                            <td>".$description."</td>
-                            <td>
-                                <a class='action' href=''>Xóa</a>
-                                <a class='action' href=''>Sửa</a>
-                            </td>
-                        </tr>
-                        </table>";
-                    }
-                    
-                }else{
-                echo "find nothing";
+                            <th style='10%'>No</th>
+                            <th>Tên môn học</th>
+                            <th style='10%'>Khóa</th>
+                            <th>Mô tả chi tiết</th>
+                            <th style='40%'>Action</th>
+                        </tr>";
+                        while ($row = mysqli_fetch_assoc($query)){
+                            $id = $row["id"];
+                            $name = $row["name"];
+                            $school_year = $row["school_year"];
+                            $description = $row["description"];
+                            echo
+                            "
+                            <tr>
+                                <td>".$id."</td>
+                                <td>".$name."</td>
+                                <td>".$school_year."</td>
+                                <td>".$description."</td>
+                                <td>
+                                    <a class='action' href=''>Xóa</a>
+                                    <a class='action' href=''>Sửa</a>
+                                </td>
+                            </tr>";
+                            
+                        }
+                        echo "</table>";
+                        
+                    }else{
+                    echo "find nothing";
+                }
             }
+           
         ?>
                    
     <!-- <script type="text/javascript">
