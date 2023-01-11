@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="schedule_confirm" href="/web/css/schedule_confirm.css">
+    <link rel="schedule_search" href="/web/css/schedule_search.css">
 </head>
 <body>
     <form method="post" action="">
@@ -126,18 +126,6 @@
                         <td>6,7</td>
                         <td> <input type="submit" name="search" class="action" value="Sửa"> </td>
                         <td> <input type="submit" name="delete" class="action" value="Xóa" onclick="return confirm('Bạn chắc chắn muón xóa thời khóa biểu ?')"> </td>
-
-
-                    </tr>
-                </table>
-            </div>
-            </div>
-    </form>
-    </fieldset>
-</body>
-
-</html>
-
 
 
                     </tr>
