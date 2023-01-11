@@ -10,29 +10,30 @@
 </head>
 
 <?php
-    $course = array("" => "", "LT" => "Lập trình", "VE" => "Vẽ", "AN" => "Âm nhạc");
-    // $server_name="localhost";
+    // $course = array("" => "", "LT" => "Lập trình", "VE" => "Vẽ", "AN" => "Âm nhạc");
+    $server_name="localhost";
 
-    // $username="root";
+    $username="root";
 
-    // $password="";
+    $password="";
 
-    // $database_name="test";
-    // $conn = mysqli_connect($server_name, $username, $password, $database_name);
-    // $sql = "SELECT * FROM subject";
+    $database_name="test";
+    $conn = mysqli_connect($server_name, $username, $password, $database_name);
+    $sql = "SELECT * FROM subject";
 
-    //     $result = mysqli_query($conn, $sql);
-    //     $course = array("" => "");
-    //     while($row = mysqli_fetch_assoc($result)){
-    //         array_push($course, $row["name"]);
-    //     }
-    //     if (isset($_GET["search"]) && !empty($_GET["search"])){
-    //         $key = $_GET["search"];
-    //         $sql_search = "SELECT * FROM subject WHERE description LIKE '%key%' OR name LIKE '%key%' OR school_year LIKE '%key%'";
-    //     }else{
-    //         $sql_search = "SELECT * FROM subject";
-    //     }
-    //     $search_result = mysqli_query($conn, $sql_search);
+        $result = mysqli_query($conn, $sql);
+        $course = array("" => "");
+        while($row = mysqli_fetch_assoc($result)){
+            array_push($course, $row["name"]);
+        }
+        // if (isset($_GET["search"]) && !empty($_GET["search"])){
+        //     $key = $_GET["search"];
+        //     $sql_search = "SELECT * FROM subject WHERE description LIKE '%key%' OR name LIKE '%key%' OR school_year LIKE '%key%'";
+        // }else{
+        //     $sql_search = "SELECT * FROM subject";
+        // }
+        // $search_result = mysqli_query($conn, $sql_search);
+        
 ?>
 <body>
     <form method='post' action='../../app/controller/classroom_search.php' enctype='multipart/form-data'>
@@ -60,62 +61,79 @@
                 <tr>
                     <td class='td'><label>Từ khóa</label></td>
                     <td>
-                        <input type='text' class='box' name='search' id='key_input' value="
+                        <input type='text' class='box' name='key' id='key_input' value=''
                         <?php
-                          if (isset($_GET["search"])){
-                            echo $_GET["search"];
+                          if (isset($_GET["key"])){
+                            echo $_GET["key"];
                           }  
                         ?>
                         ">
                     </td>
                 </tr>
             </table>
-            <button name='search' type='search' onClick="../../app/controller/classroom_search.php">Tìm kiếm</button>
+            <button name='search' value='search' onClick="../../app/controller/classroom_search.php">Tìm kiếm</button>
         </div>
             
-        <div class ='result'>
-            <p>Số môn học tìm thấy XXX</p>
-        </div>
+        
+        <?php
+            $key = isset($_GET['key']) ? $_GET['key'] : '';
+            $search_string = "SELECT * FROM subject WHERE ";
+            $display_words = "";
+    
+            $search_string .= "description LIKE '%$key%' OR school_year LIKE '%$key%' OR name LIKE '%$key%'";
+    
+            // run the query in the db and search through each of the records returned
+            $query = mysqli_query($conn, $search_string); 
 
-        <div class='list_course'>
-            <table style="width:100%">
-                <!-- <colgroup>
-                    <col span="1" style="width: 5%;">
-                    <col span="1" style="width: 28%;">
-                    <col span="1" style="width: 37%;">
-                    <col span="1" style="width: 40%;">
-                </colgroup> -->
-                <tr>
-                    <th style="10%">No</th>
-                    <th>Tên môn học</th>
-                    <th style="10%">Khóa</th>
-                    <th>Mô tả chi tiết</th>
-                    <th style="40%">Action</th>
-                </tr>
-                <?php
-                    // while($row = mysqli_fetch_assoc($search_result)){
-                    //     $id = $row["id"];
-                    //     $name = $row["name"];
-                    //     $school_year = $row["school_year"];
-                    //     $description = $row["description"];
-                ?>
-                <tr>
-                    <!-- <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td>  </td> -->
-                    <td>01</td>
-                    <td>Nguyễn Văn A</td>
-                    <td>2022</td>
-                    <td>cái gì đó</td>
-                    <td>
-                        <a class="action" href="">Xóa</a>
-                        <a class="action" href="">Sửa</a>
-                    </td>
-                </tr>
-            </table>
-        </div>           
-    </div>
+            echo "
+            <div class ='result'>
+                <p>Số môn học tìm thấy:</p>
+            </div>
+            ";
+            // $row = mysqli_fetch_row($query);
+            // print_r($row);
+
+            if ($result_count > 0){
+            
+                echo"
+                    <table style='width:100%'>
+                    <!-- <colgroup>
+                        <col span='1' style='width: 5%;'>
+                        <col span='1' style='width: 28%;'>
+                        <col span='1' style='width: 37%;'>
+                        <col span='1' style='width: 40%;'>
+                    </colgroup> -->
+                    <tr>
+                        <th style='10%'>No</th>
+                        <th>Tên môn học</th>
+                        <th style='10%'>Khóa</th>
+                        <th>Mô tả chi tiết</th>
+                        <th style='40%'>Action</th>
+                    </tr>";
+                    $id = $row[0];
+                    $name = $row[1];
+                    $school_year = $row[4];
+                    $description = $row[3];
+                    echo
+                    "
+                    <tr>
+                        <td>".$id."</td>
+                        <td>".$name."</td>
+                        <td>".$school_year."</td>
+                        <td>".$description."</td>
+                        <td>
+                            <a class='action' href=''>Xóa</a>
+                            <a class='action' href=''>Sửa</a>
+                        </td>
+                    </tr>
+                    </table>";
+                    
+                    
+                }else{
+                echo "find nothing";
+            }
+        ?>
+                   
     <!-- <script type="text/javascript">
         document.getElementById("department_in").value = getSavedValue("department_in");    // set the value to this input
         document.getElementById("key_input").value = getSavedValue("key_input");   // set the value to this input
