@@ -83,17 +83,16 @@
             $search_string .= "description LIKE '%$key%' OR school_year LIKE '%$key%' OR name LIKE '%$key%'";
     
             // run the query in the db and search through each of the records returned
-            $query = mysqli_query($conn, $search_string); 
+            $query = mysqli_query($conn, $search_string);
+            $check = mysqli_fetch_row($query);
 
             echo "
             <div class ='result'>
                 <p>Số môn học tìm thấy:</p>
             </div>
             ";
-            // $row = mysqli_fetch_row($query);
-            // print_r($row);
 
-            if ($result_count > 0){
+            if (isset($check)){
             
                 echo"
                     <table style='width:100%'>
@@ -110,24 +109,25 @@
                         <th>Mô tả chi tiết</th>
                         <th style='40%'>Action</th>
                     </tr>";
-                    $id = $row[0];
-                    $name = $row[1];
-                    $school_year = $row[4];
-                    $description = $row[3];
-                    echo
-                    "
-                    <tr>
-                        <td>".$id."</td>
-                        <td>".$name."</td>
-                        <td>".$school_year."</td>
-                        <td>".$description."</td>
-                        <td>
-                            <a class='action' href=''>Xóa</a>
-                            <a class='action' href=''>Sửa</a>
-                        </td>
-                    </tr>
-                    </table>";
-                    
+                    while ($row = mysqli_fetch_assoc($query)){
+                        $id = $row["id"];
+                        $name = $row["name"];
+                        $school_year = $row["school_year"];
+                        $description = $row["description"];
+                        echo
+                        "
+                        <tr>
+                            <td>".$id."</td>
+                            <td>".$name."</td>
+                            <td>".$school_year."</td>
+                            <td>".$description."</td>
+                            <td>
+                                <a class='action' href=''>Xóa</a>
+                                <a class='action' href=''>Sửa</a>
+                            </td>
+                        </tr>
+                        </table>";
+                    }
                     
                 }else{
                 echo "find nothing";
