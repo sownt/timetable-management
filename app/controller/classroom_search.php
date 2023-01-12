@@ -46,13 +46,13 @@
                 <tr>
                     <td class='td'><label>Khóa học</label></td>
                     <td>
-                        <select class="box" name='department' style = 'border-color:#82cd79;height: 100%;width: 80%;' 
+                        <select class="box" name='course' style = 'border-color:#82cd79;height: 100%;width: 80%;' 
                         id="department_in" onkeyup='saveValue(this);'>
                             <?php
                                 foreach ($course as $key => $value) {
                                     echo "<option";
                                     // echo (isset($_POST['faculty']) && $_POST['faculty'] == $key) ? " selected " : "";
-                                    echo " value='" . $key . "'>" . $value . "</option>";
+                                    echo " value='" . $value . "'>" . $value . "</option>";
                                 }
                             ?> 
                         </select>
@@ -76,18 +76,13 @@
             
         
         <?php
-            if (isset($_GET['key']) ? $_GET['key'] : ''){
-                $key = trim($_GET['key']);
-                print($key);
-                $search_string = "SELECT * FROM subject WHERE ";
-                $display_words = "";
-        
-                $search_string .= "description LIKE '%$key%' OR school_year LIKE '%$key%' OR name LIKE '%$key%'";
-        
-                // run the query in the db and search through each of the records returned
-                $query = mysqli_query($conn, $search_string);
-                $result_count = mysqli_num_rows($query);
-    
+            $search_string = "SELECT * FROM subject WHERE ";
+            if  (isset($_GET['course']) ? $_GET['course'] : ''){
+                $search_key = trim($_GET['course']);
+                $search_string .= "name LIKE '%$search_key%'";
+                $course_query = mysqli_query($conn, $search_string);
+                $result_count = mysqli_num_rows($course_query);
+
                 echo "
                 <div class ='result'>
                     <p>Số môn học tìm thấy: ".$result_count."</p>
@@ -95,6 +90,66 @@
                 ";
     
                 if ($result_count > 0){
+                
+                    echo"
+                        <table style='width:100%'>
+                        <!-- <colgroup>
+                            <col span='1' style='width: 5%;'>
+                            <col span='1' style='width: 28%;'>
+                            <col span='1' style='width: 37%;'>
+                            <col span='1' style='width: 40%;'>
+                        </colgroup> -->
+                        <tr>
+                            <th style='10%'>No</th>
+                            <th>Tên môn học</th>
+                            <th style='10%'>Khóa</th>
+                            <th>Mô tả chi tiết</th>
+                            <th style='40%'>Action</th>
+                        </tr>";
+                        while ($row_course = mysqli_fetch_assoc($course_query)){
+                            $id = $row_course["id"];
+                            $name = $row_course["name"];
+                            $school_year = $row_course["school_year"];
+                            $description = $row_course["description"];
+                            echo
+                            "
+                            <tr>
+                                <td>".$id."</td>
+                                <td>".$name."</td>
+                                <td>".$school_year."</td>
+                                <td>".$description."</td>
+                                <td>
+                                    <a class='action' href=''>Xóa</a>
+                                    <a class='action' href=''>Sửa</a>
+                                </td>
+                            </tr>";
+                            
+                        }
+                        echo "</table>";
+                        
+                    }else{
+                    echo "find nothing";
+                }
+
+            }
+
+            if (isset($_GET['key']) ? $_GET['key'] : ''){
+                $key = trim($_GET['key']);
+                $display_words = "";
+        
+                $search_string .= "description LIKE '%$key%' OR school_year LIKE '%$key%' OR name LIKE '%$key%'";
+        
+                // run the query in the db and search through each of the records returned
+                $query = mysqli_query($conn, $search_string);
+                $result_count_1 = mysqli_num_rows($query);
+    
+                echo "
+                <div class ='result'>
+                    <p>Số môn học tìm thấy: ".$result_count_1."</p>
+                </div>
+                ";
+    
+                if ($result_count_1 > 0){
                 
                     echo"
                         <table style='width:100%'>
