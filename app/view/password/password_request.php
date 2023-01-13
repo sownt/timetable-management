@@ -1,3 +1,38 @@
+<?php 
+    // require_once('./db/dbhelper.php');
+ 
+    // $err = [];
+    
+    // if(!empty($_POST)) {
+    //     $login_id = $_POST['login_id'];
+        
+    //     if(empty($login_id) ) {
+    //         $err['empty_login'] = 'Hãy nhập id';
+    //     }
+    //     if(!empty($login_id) && strlen($login_id) < 4) {
+    //         $err['err_size_login'] = 'Hãy nhập tối thiểu 4 ký tự';
+    //     } 
+    //     if($login_id != '' && sizeof($err) == 0) {
+    //         $sql = 'select * from admins where login_id = '.$login_id.'';
+    //         $result = executeResult($sql,true);
+    //         if($result && $result['login_id'] === $login_id) {
+    //             $sql = 'update admins set reset_password_token ='.microtime(true).' where login_id = '.$login_id.'';
+    //             execute($sql);
+    //             header('Location: login.php');
+    //         } else {
+    //             $err['err_id_login'] = 'Login id không tồn tại trong hệ thống';
+    //         }
+    //     }
+
+        
+    // }
+    // echo (isset($err['empty_login']) ? '<p style ="color:red">'.$err['empty_login'].'</p>': '');
+    // echo (isset($err['err_size_login']) ? '<p style ="color:red">'.$err['err_size_login'].'</p>': '');
+    // echo(isset($err['err_id_login']) ? '<p style ="color:red">'.$err['err_id_login'].'</p>':'');
+
+   
+     
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,12 +44,11 @@
 </head>
 
 <body>
-    <center style="
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-">
+    <div style="
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;">
         <form method="POST">
             <div>
                 <label>Người dùng</label>
@@ -27,7 +61,7 @@
                 </button>
             </div>
         </form>
-    </center>
+    </div>
 </body>
 
 </html>
