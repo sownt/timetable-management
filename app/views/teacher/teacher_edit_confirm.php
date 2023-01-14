@@ -1,36 +1,5 @@
 <?php
-    // session_start();
 
-    $fake_teacher_db = array(
-        "id" => "1",
-        "name" => "Nguyễn Văn A",
-        "specialization" => "001",
-        "degree" => "003",
-        "avatar" => "../../web/avatar/1_fat-cat1_20221217153903.png",
-        "description" => "Tôi năm nay 29 tuổi, lấy bằng tiến sĩ ở Đại học bôn ba. Sở thích của tôi là đọc báo, chơi game và nghe nhạc. Tôi nuôi 100 con chó và 100 con mèo. Mỗi loại một nửa là béo, một nữa là gầy. Tôi gõ VNI nên đôi khi nhầm thanh hõi với thanh ngả. Siuuuuuuuu...."
-    );
-
-    $fake_teacher = null;
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $fake_teacher = $_POST;
-        $teacher_id = $fake_teacher["id"];
-        if ($_FILES["avatar"]["error"] != 0) {
-            $fake_teacher["avatar"] = $fake_teacher_db["avatar"];
-        }
-        else {
-            $info = pathinfo($_FILES["avatar"]["name"]);
-            $new_name = $info["filename"] . "_" . date("YmdHis") . ".";
-            $ext = $info["extension"];
-            $new_avatar = "../../web/avatar/tmp/$teacher_id/" . $new_name . $ext;
-            move_uploaded_file($_FILES["avatar"]["tmp_name"], $new_avatar);
-            $fake_teacher["avatar"] = $new_avatar;
-        }
-    }
-    else {
-        header("location: ./teacher_edit_input.php");
-    }
-    
     $specializations = array(
         "001" => "Khoa học máy tính",
         "002" => "Khoa học dữ liệu",
@@ -44,6 +13,31 @@
         "004" => "Phó giáo sư",
         "005" => "Giáo sư"
     );
+
+    session_start();
+
+    if (!isset($_SESSION["id"]) || empty($_SESSION["id"])) {
+        header('Location: ../../../index.php');
+    }
+
+    $_SESSION["is_back"] = "1";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $_SESSION["is_back"] = "0";
+        if (strcmp($_SESSION["is_change_avatar"], "1") === 0) {
+            $fw = "../../../";
+            $splitted = explode("/", $_SESSION["new_avatar"]);
+            $last = array_pop($splitted);
+            $second_last = array_pop($splitted);
+            array_push($splitted, $last);
+            $new_path = join("/", $splitted);
+            rename($fw . $_SESSION["new_avatar"], $fw . $new_path);
+            echo $_SESSION["avatar"];
+            unlink($fw . $_SESSION["avatar"]);
+        }
+        header('Location: ./teacher_edit_complete.php');
+    }
+
 ?>
 
 <html lang="vi">
@@ -64,12 +58,12 @@
 <body>
     <div class="container">
         <div class="row justify-content-center mb-4">
-            <form class="border border-primary col-sm-10 pt-4" action="./teacher_edit_complete.php" method="POST" enctype="multipart/form-data">
+            <form class="border border-primary col-sm-10 pt-4" action="" method="POST" enctype="multipart/form-data">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Họ và Tên</label>
                     <div class="col-sm-10">
                         <?php
-                            $teacher_name = $fake_teacher["name"];
+                            $teacher_name = $_SESSION["name"];
                             echo "<label class=\"col-form-label\">$teacher_name</label>";
                         ?>
                     </div>
@@ -78,7 +72,7 @@
                     <label for="specialization" class="col-sm-2 col-form-label">Bộ môn</label>
                     <div class="col-sm-10">
                         <?php
-                            $teacher_specialization = $specializations[$fake_teacher["specialization"]];
+                            $teacher_specialization = $specializations[$_SESSION["specialization"]];
                             echo "<label class=\"col-form-label\">$teacher_specialization</label>";
                         ?>
                     </div>
@@ -87,7 +81,7 @@
                     <label for="degreee" class="col-sm-2 col-form-label">Học vị</label>
                     <div class="col-sm-10">
                         <?php
-                            $teacher_degree = $degrees[$fake_teacher["degree"]];
+                            $teacher_degree = $degrees[$_SESSION["degree"]];
                             echo "<label class=\"col-form-label\">$teacher_degree</label>";
                         ?>
                     </div>
@@ -96,7 +90,13 @@
                     <label for="show-avatar" class="col-sm-2 col-form-label">Avatar</label>
                     <div class="col-sm-10">
                         <?php
-                            $avatar = $fake_teacher["avatar"];
+                            if (strcmp($_SESSION["is_change_avatar"], "1") === 0) {
+                                $avatar = $_SESSION["new_avatar"];
+                            }
+                            else {
+                                $avatar = $_SESSION["avatar"];
+                            }
+                            $avatar = "../../../$avatar";
                             echo "<img src=\"$avatar\" alt=\Avatar of teacher\" class=\"img-thumbnail\" id=\"show-avatar\" style=\"width:260px;height:224px;\">";
                         ?>
                     </div>
@@ -105,13 +105,13 @@
                     <label for="description" class="col-sm-2 col-form-label">Mô tả thêm</label>
                     <div class="col-sm-10">
                     <?php
-                        $teaher_desc = $fake_teacher["description"];
+                        $teaher_desc = $_SESSION["description"];
                         echo "<label class=\"col-form-label\">$teaher_desc</label>";
                     ?>
                     </div>
                 </div>
                 <div class="row">
-                    <button type="submit" class="btn btn-primary ml-auto mr-1 d-block mt-3 mb-2">Sửa lại</button>
+                    <button type="button" class="btn btn-primary ml-auto mr-1 d-block mt-3 mb-2" onclick="history.go(-1)">Sửa lại</button>
                     <button type="submit" class="btn btn-primary mr-auto ml-1 d-block mt-3 mb-2">Hoàn thành</button>
                 </div>
             </form>

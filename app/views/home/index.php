@@ -29,9 +29,9 @@
           <td class="text-center"><a href="./?controller=schedule&action=register">Đăng ký</a></td>
         </tr>
         <tr>
-          <td class="text-center"><a href="./?controller=teacher&action=register">Chỉnh sửa</a></td>
-          <td class="text-center"><a href="./?controller=lecture&action=register">Chỉnh sửa</a></td>
-          <td class="text-center"><a href="./?controller=schedule&action=register">Chỉnh sửa</a></td>
+          <td class="text-center"><a href="./?controller=teacher&action=update">Chỉnh sửa</a></td>
+          <td class="text-center"><a href="./?controller=lecture&action=update">Chỉnh sửa</a></td>
+          <td class="text-center"><a href="./?controller=schedule&action=update">Chỉnh sửa</a></td>
         </tr>
       </table>
     </div>
