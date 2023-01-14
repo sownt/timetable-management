@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <title>Add new teacher</title>
+  <title>Thêm mới giáo viên</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -13,7 +13,7 @@
 <?php
 session_start();
 
-$subject = array("0" => "",
+$specialized = array("0" => "",
                     "001" => "Khoa học máy tính",
                     "002" => "Khoa học dữ liệu",
                     "003" => "Hải dương học"
@@ -29,7 +29,7 @@ $degrees = array("0" => "",
 
 $isValid = true;
 $error_name = "";
-$error_subject = "";
+$error_specialized = "";
 $error_degree = "";
 $error_avatar = "";
 $error_description = "";
@@ -42,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_name = "Không nhập quá 100 ký tự.";
         $isValid = false;
     }
-    if ($_POST["subject"] == "0") {
-        $error_subject = "Hãy chọn bộ môn.";
+    if ($_POST["specialized"] == "0") {
+        $error_specialized = "Hãy chọn bộ môn.";
         $isValid = false;
     }
     if ($_POST["degree"] == "0") {
@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     if ($isValid) {
         $_SESSION["name"] = $_POST["name"];
-        $_SESSION["subject"] = $_POST["subject"];
+        $_SESSION["specialized"] = $_POST["specialized"];
         $_SESSION["degree"] = $_POST["degree"];
         $_SESSION["avatar"] = $_FILES['avatar']['name'];
         $_SESSION["description"] = $_POST["description"];
@@ -109,15 +109,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="form-group">
             <?php if (!$isValid) { 
                 echo '<label class="sr-only control-label col-sm-4" ></label>';
-                echo '<span class="control-label col-sm-6" style="color:red; text-align:left">' . $error_subject . '</span>';
+                echo '<span class="control-label col-sm-6" style="color:red; text-align:left">' . $error_specialized . '</span>';
             } ?>
         </div>
         <div class="form-group">         
             <label class="control-label col-sm-4" >Bộ môn</label>
             <div class="col-sm-6">          
-                <select class="form-control" name="subject" id="subject">
+                <select class="form-control" name="specialized" id="specialized">
                             <?php
-                                foreach ($subject as $key => $value) {
+                                foreach ($specialized as $key => $value) {
                                     echo "<option value=". $key . ">" . $value . "</option>"; 
                                 }
                             ?>
@@ -125,11 +125,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
         <script type="text/javascript">
-            document.getElementById('subject').value = "<?php
+            document.getElementById('specialized').value = "<?php
                 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                    echo $_POST['subject'];
+                    echo $_POST['specialized'];
                 } else {
-                    echo $_SESSION['subject'];
+                    echo $_SESSION['specialized'];
                 }
             ?>";
         </script>

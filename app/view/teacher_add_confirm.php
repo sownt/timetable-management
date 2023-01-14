@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <title>Confirm infomation</title>
+  <title>Xác nhận thông tin</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -11,7 +11,7 @@
 <body>
 <?php
 session_start();
-$subject = array("0" => "",
+$specialized = array("0" => "",
                     "001" => "Khoa học máy tính",
                     "002" => "Khoa học dữ liệu",
                     "003" => "Hải dương học"
@@ -42,7 +42,7 @@ $_SESSION['count'] = 1;
         <div class="form-group">
             <label class="control-label col-sm-4">Bộ môn</label>
             <div class="col-sm-6">
-                <input type="text" name="subject" class="form-control" value="<?php echo $subject[$_SESSION["subject"]];?>" readonly>          
+                <input type="text" name="specialized" class="form-control" value="<?php echo $specialized[$_SESSION["specialized"]];?>" readonly>          
             </div>
         </div>
 
