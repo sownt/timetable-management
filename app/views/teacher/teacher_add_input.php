@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Teacher</title>
-    <link rel="stylesheet" href="../../web/css/teacher_add_input.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <title>Thêm mới giáo viên</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $isValid = false;
     }
     if ($_POST["specialized"] == "0") {
-        $error_specialized = "Hãy chọn chuyên ngành.";
+        $error_specialized = "Hãy chọn bộ môn.";
         $isValid = false;
     }
     if ($_POST["degree"] == "0") {
@@ -78,40 +78,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-    <div class="container">
-    <form action="" method="POST" enctype="multipart/form-data">
 
-        <?php if (!$isValid) { 
-            echo '<div class="error"> <label>' . $error_name . '</label> </div>';
-        } ?>
-        <div class="form-input-line">
-            <label class="input-label">
-                Họ và tên
-            </label>
-            <input type="text" name="name" style="width: 192px; background-color: #e1eaf4; padding: 5px 0px 5px 5px;" 
-            value="<?php 
-                if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                    echo isset($_POST["name"]) ? $_POST["name"] : ''; 
-                } else {
-                    echo isset($_SESSION['name']) ? $_SESSION['name'] : '';
-                }
-            ?>">
+<div class="container" style="border:1px solid; margin: auto; height: 600px; width: 700px;">
+    <h2 style="text-align:center">Đăng ký thông tin giáo viên</h2>
+    
+    <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
+        <!-- Họ và tên -->
+        <div class="form-group">
+            <?php if (!$isValid) { 
+                echo '<label class="sr-only control-label col-sm-4" ></label>';
+                echo '<span class="control-label col-sm-6" style="color:red; text-align:left">' . $error_name . '</span>';
+            } ?>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" style="text-align:right">Họ và tên</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" name="name"
+                    value="<?php 
+                                if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                                    echo isset($_POST["name"]) ? $_POST["name"] : ''; 
+                                } else {
+                                    echo isset($_SESSION['name']) ? $_SESSION['name'] : '';
+                                }
+                            ?>"
+                >
+            </div>
         </div>
 
-        <?php if (!$isValid) { 
-            echo '<div class="error"> <label>' . $error_specialized . '</label> </div>';
-        } ?>
-        <div class="form-input-line">
-            <label class="input-label">
-                Chuyên ngành
-            </label>
-            <select name="specialized" id="specialized" style="width: 200px; background-color: #e1eaf4; padding: 5px 0px 5px 5px;">
-                <?php
-                    foreach ($specialized as $key => $value) {
-                        echo "<option value=". $key . ">" . $value . "</option>"; 
-                    }
-                ?>
-            </select>
+        <!-- Bộ môn -->
+        <div class="form-group">
+            <?php if (!$isValid) { 
+                echo '<label class="sr-only control-label col-sm-4" ></label>';
+                echo '<span class="control-label col-sm-6" style="color:red; text-align:left">' . $error_specialized . '</span>';
+            } ?>
+        </div>
+        <div class="form-group">         
+            <label class="control-label col-sm-4" >Bộ môn</label>
+            <div class="col-sm-6">          
+                <select class="form-control" name="specialized" id="specialized">
+                            <?php
+                                foreach ($specialized as $key => $value) {
+                                    echo "<option value=". $key . ">" . $value . "</option>"; 
+                                }
+                            ?>
+                </select>
+            </div>
         </div>
         <script type="text/javascript">
             document.getElementById('specialized').value = "<?php
@@ -123,21 +134,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>";
         </script>
 
-        <?php if (!$isValid) { 
-            echo '<div class="error"> <label>' . $error_degree . '</label> </div>';
-        } ?>
-        <div class="form-input-line">
-            <label class="input-label">
-                Học vị
-            </label>
-            <select name="degree" id="degree" style="width: 200px; background-color: #e1eaf4; padding: 5px 0px 5px 5px;">
-                <?php
-                foreach ($degrees as $key => $value) {
-                    echo "<option value=" . $key . ">" . $value . "</option>"; 
-                }
-                ?>
-                
-            </select>
+        <!-- Học vị -->
+        <div class="form-group">
+            <?php if (!$isValid) { 
+                echo '<label class="sr-only control-label col-sm-4" ></label>';
+                echo '<span class="control-label col-sm-6" style="color:red; text-align:left">' . $error_degree . '</span>';
+            } ?>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" >Học vị</label>
+            <div class="col-sm-6">
+                <select class="form-control" name="degree" id="degree">
+                    <?php
+                    foreach ($degrees as $key => $value) {
+                        echo "<option value=" . $key . ">" . $value . "</option>"; 
+                    }
+                    ?>   
+                </select>     
+            </div>
         </div>
         <script type="text/javascript">
             document.getElementById('degree').value = "<?php
@@ -149,32 +163,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>";
         </script>
 
-        <?php if (!$isValid) { 
-            echo '<div class="error"> <label>' . $error_avatar . '</label> </div>';
-        } ?>
-        <div class="form-input-line" >
-            <label class="input-label">
-                Avatar
-            </label>
-            <div>   
-				<div class="form_item_file" id="browse">
-					<div class="form_item_filename" id="filename"></div>
-					<div class="form_item_button">
-						<label class="form_item_upload" for="avatar">Browse</label>
+        <!-- Avatar -->
+        <div class="form-group">
+            <label class="sr-only control-label col-sm-4" >Avatar</label>
+            <?php if (!$isValid) { 
+                echo '<span class="control-label col-sm-6" style="color:red; text-align:left">' . $error_avatar . '</span>';
+            } ?>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" >Avatar</label>
+            <div>       
+				<div class="col-sm-6" id="browse">
+					<!-- <div class="form_item_filename" id="filename"></div> -->
+					<div class="form-control">
+						<!-- <label class="form_item_upload" for="avatar"></label> -->
 						<input type="file" id="avatar" name="avatar" accept="image/*"/>
 					</div>
 				</div>
 			</div>
         </div>
         
-        <?php if (!$isValid) { 
-            echo '<div class="error"> <label>' . $error_description . '</label> </div>';
-        } ?>
-        <div class="form-input-line">
-            <label class="input-label">
-                Mô tả thêm
-            </label>
-            <textarea name="description" id="description" style="width: 350px; height: 100px; background-color: #e1eaf4;"></textarea>
+        <!-- Mô tả -->
+        <div class="form-group">
+            <?php if (!$isValid) { 
+                echo '<label class="sr-only control-label col-sm-4" ></label>';
+                echo '<span class="control-label col-sm-6" style="color:red; text-align:left">' . $error_description . '</span>';
+            } ?>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4">Mô tả</label>
+            <div class="col-sm-6">
+                <textarea class="form-control" name="description" id="description" ></textarea>
+            </div>
+            
         </div>
         <script type="text/javascript">
             document.getElementById('description').value = "<?php
@@ -185,12 +206,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             ?>";
         </script>
-        <div class="form-input-line" style="align-items: center; display: flex; justify-content: center;">
-            <input class="submit-button" type="submit" value="Xác nhận">
+
+        <!-- Nút xác nhận -->
+        <div class="col-sm-offset-5 col-sm-10">
+            <input class="btn btn-default" type="submit" value="Xác nhận">
         </div>
     </form>
     </div>
 </body>
+
 <script>
 	$('#avatar').change(function() {
 		var i = $(this).prev('label').clone();
