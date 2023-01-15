@@ -3,13 +3,14 @@
 --
 
 CREATE TABLE `admins` (
-  `id` int(10) NOT NULL PRIMARY KEY,
+  `id` int(10) NOT NULL IDENTITY(1,1) PRIMARY KEY,
   `login_id` varchar(20) DEFAULT NULL,
   `password` varchar(64) DEFAULT NULL,
   `actived_flag` int(1) DEFAULT NULL,
   `reset_password_token` varchar(100) DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
-  `created` datetime DEFAULT NULL
+  `created` datetime DEFAULT NULL,
+  CONSTRAINT unique_id UNIQUE(id)
 ) 
 -- --------------------------------------------------------
 
@@ -18,7 +19,7 @@ CREATE TABLE `admins` (
 --
 
 CREATE TABLE `schedules` (
-  `id` int(10) NOT NULL PRIMARY KEY,
+  `id` int(10) NOT NULL IDENTITY(1,1) PRIMARY KEY,
   `school_year` char(10) DEFAULT NULL,
   `subject_id` int(10) DEFAULT NULL,
   `teacher_id` int(10) DEFAULT NULL,
@@ -36,7 +37,7 @@ CREATE TABLE `schedules` (
 --
 
 CREATE TABLE `subjects` (
-  `id` int(10) NOT NULL PRIMARY KEY,
+  `id` int(10) NOT NULL IDENTITY(1,1) PRIMARY KEY,
   `name` varchar(250) DEFAULT NULL,
   `avatar` varchar(250) DEFAULT NULL,
   `description` text DEFAULT NULL,
@@ -52,7 +53,7 @@ CREATE TABLE `subjects` (
 --
 
 CREATE TABLE `teachers` (
-  `id` int(10) NOT NULL PRIMARY KEY,
+  `id` int(10) NOT NULL IDENTITY(1,1) PRIMARY KEY,
   `name` varchar(250) DEFAULT NULL,
   `avatar` varchar(250) DEFAULT NULL,
   `description` text DEFAULT NULL,

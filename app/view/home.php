@@ -1,9 +1,15 @@
+<?php
+session_start();
+if(!isset($_SESSION['IS_LOGIN'])){
+	header('location:login.php');
+	die();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
   <meta charset="UTF-8">
-
   <!-- base style  -->
   <link rel="stylesheet" href="styles.css">
 
