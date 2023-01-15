@@ -15,8 +15,7 @@ class ScheduleController extends BaseController
         // echo $_SERVER['REQUEST_URI'];
         // echo "<br>";
         // echo $_SERVER['QUERY_STRING'];
-        if (isset($_POST['submit'])) {
-            $data_schedule = $_POST;
+        function validation_schedule($data_schedule){
             $errors = array();
             if (!isset($data_schedule['school_year'])) {
                 $errors['school_year'] = "Hãy chọn năm học";
@@ -36,20 +35,28 @@ class ScheduleController extends BaseController
             if (!isset($data_schedule['notes']) || strlen($_POST['notes']) == 0) {
                 $errors['notes'] = "Hãy nhập chú ý";
             }
-        
+            return $errors;
+        }
+        if (isset($_POST['submit'])) {
+            $data_schedule = $_POST;
+            $errors = validation_schedule($data_schedule);
             if (count($errors) == 0) {
                 $this->render(file: 'schedule_confirm', 
                                 data: array('title' => 'Schedule Confirm','schedule_data' => $_POST));
-                exit();
             }
             else $this->render(file: 'schedule_input', 
                                 data: array('title' => 'Schedule Input','errors' => $errors, 'schedule_data' => $_POST));
         }
-        if (isset($_POST['edit_input'])){
+        elseif (isset($_POST['edit_input'])){
             var_dump($_POST);
             $this->render(file: 'schedule_input', data: array('title' => 'Schedule Edit Input','schedule_data' => $_POST));
         }
-        $this->render(file: 'schedule_input', data: array('title' => 'Schedule Input',));
+        elseif (isset($_POST['schedule_register'])){
+            echo "alo";
+            var_dump($_POST);
+            $this->render(file: 'schedule_complete', data: array('title' => 'Schedule Complete',));
+        }
+        else $this->render(file: 'schedule_input', data: array('title' => 'Schedule Input',));
     }
     function update()
     {
