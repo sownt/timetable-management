@@ -12,7 +12,44 @@ class ScheduleController extends BaseController
     }
     function register()
     {
-        $this->render(file: 'schedule_input', data: array('title' => 'Danh sách reset'));
+        // echo $_SERVER['REQUEST_URI'];
+        // echo "<br>";
+        // echo $_SERVER['QUERY_STRING'];
+        if (isset($_POST['submit'])) {
+            $data_schedule = $_POST;
+            $errors = array();
+            if (!isset($data_schedule['school_year'])) {
+                $errors['school_year'] = "Hãy chọn năm học";
+            }
+            if (!isset($data_schedule['subject_id'])) {
+                $errors['subject_id'] = "Hãy chọn môn học";
+            }
+            if (!isset($data_schedule['teacher_id'])) {
+                $errors['teacher_id'] = "Hãy chọn giáo viên";
+            }
+            if (!isset($data_schedule['week_day_id'])) {
+                $errors['week_day_id'] = "Hãy chọn thứ";
+            }
+            if (!isset($data_schedule['lession_id'])) {
+                $errors['lession_id'] = "Hãy chọn tiết học";
+            }
+            if (!isset($data_schedule['notes']) || strlen($_POST['notes']) == 0) {
+                $errors['notes'] = "Hãy nhập chú ý";
+            }
+        
+            if (count($errors) == 0) {
+                $this->render(file: 'schedule_confirm', 
+                                data: array('title' => 'Schedule Confirm','schedule_data' => $_POST));
+                exit();
+            }
+            else $this->render(file: 'schedule_input', 
+                                data: array('title' => 'Schedule Input','errors' => $errors, 'schedule_data' => $_POST));
+        }
+        if (isset($_POST['edit_input'])){
+            var_dump($_POST);
+            $this->render(file: 'schedule_input', data: array('title' => 'Schedule Edit Input','schedule_data' => $_POST));
+        }
+        $this->render(file: 'schedule_input', data: array('title' => 'Schedule Input',));
     }
     function update()
     {

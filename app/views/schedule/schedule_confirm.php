@@ -1,12 +1,3 @@
-<?php
-session_start();
-$schedule_data = $_SESSION['schedule_data'];
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //insert db..
-    header('Location: ./schedule_complete.php');
-}
-?>
-
 <body>
     <div class="wrapper">
         <div id="error-box">
@@ -16,8 +7,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p>
                     Khóa
                 </p>
-                <select disabled name="school_year" id="school_year">
-                    <option disabled selected value="<?= $schedule_data['school_year'] ?>">
+                <select readonly name="school_year" id="school_year">
+                    <option selected value="<?= $schedule_data['school_year'] ?>">
                         <?= $schedule_data['school_year'] ?></option>
                 </select>
             </div>
@@ -25,27 +16,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p>
                     Môn học
                 </p>
-                <select disabled name="subject_id" id="subject_id">
-                    <option disabled selected value="<?= $schedule_data['subject_id'] ?>">
+                <select readonly name="subject_id" id="subject_id">
+                    <option selected value="<?= $schedule_data['subject_id'] ?>">
                         <?= $schedule_data['subject_text'] ?></option>
                 </select>
+                <input type="hidden" name="subject_text" value="<?= $schedule_data['subject_text'] ?>">
             </div>
 
             <div class="form-item">
                 <p>
                     Giáo viên
                 </p>
-                <select disabled name="teacher_id" id="teacher_id">
-                    <option disabled selected value="<?= $schedule_data['teacher_id'] ?>">
+                <select readonly name="teacher_id" id="teacher_id">
+                    <option selected value="<?= $schedule_data['teacher_id'] ?>">
                         <?= $schedule_data['teacher_text'] ?></option>
                 </select>
+                <input type="hidden" name="teacher_text" value="<?= $schedule_data['teacher_text'] ?>">
             </div>
             <div class="form-item">
                 <p>
                     Thứ
                 </p>
-                <select disabled name="week_day_id" id="week_day_id">
-                    <option disabled selected value="<?= $schedule_data['week_day_id'] ?>">
+                <select readonly name="week_day_id" id="week_day_id">
+                    <option  selected value="<?= $schedule_data['week_day_id'] ?>">
                         <?= $schedule_data['week_day_id'] ?></option>
                 </select>
             </div>
@@ -69,12 +62,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         Chú ý
                     </label>
                 </p>
-                <textarea disabled name="notes" id="notes" rows="6" cols="80"><?= $schedule_data['notes'] ?></textarea>
+                <textarea readonly name="notes" id="notes" rows="6" cols="80"><?= $schedule_data['notes'] ?></textarea>
             </div>
 
             <div class="form-item submit-wrapper">
                 <div>
-                    <input type="submit" formaction="./schedule_input.php?edit=true" name="edit_input" value="Sửa lại">
+                    <input type="submit" name="edit_input" value="Sửa lại">
                     <input type="submit" name="schedule_register" value="Đăng ký">
                 </div>
             </div>
