@@ -1,40 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel='stylesheet' href='../../web/css/lecture_search.css'>
 </head>
 
-<?php
-    // $course = array("" => "", "LT" => "Lập trình", "VE" => "Vẽ", "AN" => "Âm nhạc");
-    $server_name="localhost";
-
-    $username="root";
-
-    $password="";
-
-    $database_name="test";
-    $conn = mysqli_connect($server_name, $username, $password, $database_name);
-    $sql = "SELECT * FROM subject";
-
-        $result = mysqli_query($conn, $sql);
-        $course = array("" => "");
-        while($row = mysqli_fetch_assoc($result)){
-            array_push($course, $row["name"]);
-        }
-        // if (isset($_GET["search"]) && !empty($_GET["search"])){
-        //     $key = $_GET["search"];
-        //     $sql_search = "SELECT * FROM subject WHERE description LIKE '%key%' OR name LIKE '%key%' OR school_year LIKE '%key%'";
-        // }else{
-        //     $sql_search = "SELECT * FROM subject";
-        // }
-        // $search_result = mysqli_query($conn, $sql_search);
-        
-?>
 <body>
     <form method='get' action='../../app/controller/classroom_search.php' name=''>
     <div class="fieldset" style = "width: 600px;
@@ -217,4 +185,3 @@
 
     <script src="index.js"></script> -->
 </body>
-</html>

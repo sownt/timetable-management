@@ -2,7 +2,7 @@
 $controllers = array(
     'auth' => ['login', 'reset', 'request'],
     'home' => ['display', 'error'],
-    'lecture' => ['search', 'register', 'update'],
+    'lecture' => ['search', 'register', 'register_confirm', 'register_complete', 'update'],
     'schedule' => ['search', 'register', 'update'],
     'teacher' => ['search', 'register', 'update'],
 );

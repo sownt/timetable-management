@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<?php include_once('app/views/header.php'); ?>
-
 <head>
     <link rel="stylesheet" href="./web/css/login.css">
 </head>
 
 <body>
-
+    <?php include_once('app/views/header.php'); ?>
     <div class="logo text-center">
         <h1>Timetable Management</h1>
     </div>
@@ -18,12 +13,12 @@
             <form action="" method="POST" id="formvalidate">
                 <div class="input-group">
                     <label class="placeholder" for="userName">User Name</label>
-                    <input class="form-control" name="username" id="username" type="text" placeholder="" value =''/>
+                    <input class="form-control" name="username" id="username" type="text" placeholder="" value='' />
                     <span class="lighting"></span>
                 </div>
                 <div class="input-group">
                     <label class="placeholder" for="password">Password</label>
-                    <input class="form-control" name="password" id="password" type="password" placeholder="" value=''/>
+                    <input class="form-control" name="password" id="password" type="password" placeholder="" value='' />
                     <span class="lighting"></span>
                 </div>
 
