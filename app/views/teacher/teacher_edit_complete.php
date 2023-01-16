@@ -1,12 +1,6 @@
 <?php
 
     session_start();
-
-    if (!isset($_SESSION["id"]) || empty($_SESSION["id"])) {
-        session_destroy();
-        header('Location: ../../../index.php');
-    }
-
     session_destroy();
 
 ?>
@@ -27,13 +21,15 @@
     <title>Edit teacher</title>
 </head>
 <body>
+    <?php include_once('app/views/header.php') ?>
     <div class="container">
         <div class="row justify-content-center mb-4">
             <div class="border border-primary col-sm-10 pt-4 text-center">
                 <h4>Bạn đã chỉnh sửa thông tin thành công.</h4>
-                <a href="../../../index.php"><u><i>Trở về trang chủ</i></u></a>
+                <a href="index.php"><u><i>Trở về trang chủ</i></u></a>
             </div>
         </div>
     </div>
+    <?php include_once('app/views/footer.php') ?>
 </body>
 </html>

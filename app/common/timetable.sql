@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jan 15, 2023 at 10:00 AM
+-- Generation Time: Jan 15, 2023 at 11:19 AM
 -- Server version: 10.9.3-MariaDB-1:10.9.3+maria~ubu2204
 -- PHP Version: 8.0.24
 
@@ -31,7 +31,7 @@ CREATE TABLE `admins` (
   `id` int(10) NOT NULL,
   `login_id` varchar(20) DEFAULT NULL,
   `password` varchar(64) DEFAULT NULL,
-  `actived_flag` int(1) DEFAULT NULL,
+  `activated_flag` int(1) DEFAULT NULL,
   `reset_password_token` varchar(100) DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL
@@ -49,7 +49,7 @@ CREATE TABLE `schedules` (
   `subject_id` int(10) DEFAULT NULL,
   `teacher_id` int(10) DEFAULT NULL,
   `week_day` char(10) DEFAULT NULL,
-  `lession` char(10) DEFAULT NULL,
+  `lesson` char(10) DEFAULT NULL,
   `notes` text DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL
@@ -96,7 +96,8 @@ CREATE TABLE `teachers` (
 -- Indexes for table `admins`
 --
 ALTER TABLE `admins`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_id` (`id`);
 
 --
 -- Indexes for table `schedules`
@@ -115,6 +116,34 @@ ALTER TABLE `subjects`
 --
 ALTER TABLE `teachers`
   ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `schedules`
+--
+ALTER TABLE `schedules`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `teachers`
+--
+ALTER TABLE `teachers`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

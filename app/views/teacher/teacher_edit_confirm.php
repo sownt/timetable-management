@@ -16,26 +16,24 @@
 
     session_start();
 
-    if (!isset($_SESSION["id"]) || empty($_SESSION["id"])) {
-        header('Location: ../../../index.php');
-    }
-
     $_SESSION["is_back"] = "1";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["is_back"] = "0";
+        $new_path = $_SESSION["avatar"];
         if (strcmp($_SESSION["is_change_avatar"], "1") === 0) {
-            $fw = "../../../";
             $splitted = explode("/", $_SESSION["new_avatar"]);
             $last = array_pop($splitted);
             $second_last = array_pop($splitted);
             array_push($splitted, $last);
             $new_path = join("/", $splitted);
-            rename($fw . $_SESSION["new_avatar"], $fw . $new_path);
-            echo $_SESSION["avatar"];
-            unlink($fw . $_SESSION["avatar"]);
+            rename($_SESSION["new_avatar"], $new_path);
+            unlink($_SESSION["avatar"]);
         }
-        header('Location: ./teacher_edit_complete.php');
+
+        require_once('app/models/teacher.php');
+        Teacher::update($_SESSION["id"], $_SESSION["name"], $_SESSION["specialization"], $_SESSION["degree"], $new_path, $_SESSION["description"]);
+        header('Location: ./?controller=teacher&action=update_complete');
     }
 
 ?>
@@ -56,9 +54,10 @@
     <title>Edit teacher</title>
 </head>
 <body>
+    <?php include_once('app/views/header.php') ?>
     <div class="container">
         <div class="row justify-content-center mb-4">
-            <form class="border border-primary col-sm-10 pt-4" action="" method="POST" enctype="multipart/form-data">
+            <form class="border col-sm-10 pt-4" action="" method="POST" enctype="multipart/form-data">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Họ và Tên</label>
                     <div class="col-sm-10">
@@ -96,7 +95,6 @@
                             else {
                                 $avatar = $_SESSION["avatar"];
                             }
-                            $avatar = "../../../$avatar";
                             echo "<img src=\"$avatar\" alt=\Avatar of teacher\" class=\"img-thumbnail\" id=\"show-avatar\" style=\"width:260px;height:224px;\">";
                         ?>
                     </div>
@@ -110,12 +108,13 @@
                     ?>
                     </div>
                 </div>
-                <div class="row">
-                    <button type="button" class="btn btn-primary ml-auto mr-1 d-block mt-3 mb-2" onclick="history.go(-1)">Sửa lại</button>
-                    <button type="submit" class="btn btn-primary mr-auto ml-1 d-block mt-3 mb-2">Hoàn thành</button>
+                <div class="text-center">
+                    <button type="button" class="btn btn-secondary ml-auto mr-1 mt-3 mb-2" onclick="history.go(-1)">Sửa lại</button>
+                    <button type="submit" class="btn btn-primary mr-auto ml-1 mt-3 mb-2">Hoàn thành</button>
                 </div>
             </form>
         </div>
     </div>
+    <?php include_once('app/views/footer.php') ?>
 </body>
 </html>

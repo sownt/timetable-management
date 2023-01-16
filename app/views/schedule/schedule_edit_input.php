@@ -1,18 +1,19 @@
 <body>
-    <?php include_once('app/views/header.php'); session_start(); ?>
+    <?php include_once('app/views/header.php');
+    session_start(); ?>
     <div class="container p-5">
         <form method="POST" enctype="multipart/form-data">
             <div class="text-center mb-5">
-                <h1>Thêm mới giáo viên</h1>
+                <h1>Sửa TKB</h1>
             </div>
             <div class="row mb-3">
-                <label for="lectureName" class="col-sm-2 col-form-label">Họ và tên</label>
+                <label for="lectureName" class="col-sm-2 col-form-label">Tên môn học</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="lectureName" name="lecture-name" value="<?= $_SESSION['name'] ?>">
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="" class="col-sm-2 col-form-label">Bộ môn</label>
+                <label for="" class="col-sm-2 col-form-label">Khóa học</label>
                 <div class="col-sm-10">
                     <select class="form-select" aria-label="Default select example" name="school-year">
                         <option selected>Chọn khóa</option>
@@ -24,7 +25,7 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="" class="col-sm-2 col-form-label">Học vị</label>
+                <label for="" class="col-sm-2 col-form-label">Môn học</label>
                 <div class="col-sm-10">
                     <select class="form-select" aria-label="Default select example" name="school-year">
                         <option selected>Chọn khóa</option>
@@ -33,18 +34,59 @@
                         <option value="3">Năm 3</option>
                         <option value="3">Năm 4</option>
                     </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-2 col-form-label">Giáo viên</label>
+                <div class="col-sm-10">
+                    <select class="form-select" aria-label="Default select example" name="school-year">
+                        <option selected>Chọn khóa</option>
+                        <option value="1">Năm 1</option>
+                        <option value="2">Năm 2</option>
+                        <option value="3">Năm 3</option>
+                        <option value="3">Năm 4</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-2 col-form-label">Thứ</label>
+                <div class="col-sm-10">
+                    <select class="form-select" aria-label="Default select example" name="school-year">
+                        <option selected>Chọn khóa</option>
+                        <option value="1">Năm 1</option>
+                        <option value="2">Năm 2</option>
+                        <option value="3">Năm 3</option>
+                        <option value="3">Năm 4</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-2 col-form-label">Tiết học</label>
+                <div class="col-sm-10">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                        <label class="form-check-label" for="inlineCheckbox1">1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox2">2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
+                        <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">Chú ý</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"><?= $_SESSION['description'] ?></textarea>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="avatar" class="col-sm-2 col-form-label">Avatar</label>
                 <div class="col-sm-10">
                     <input class="form-control" type="file" id="avatar" name="avatar">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">Mô tả thêm</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"><?= $_SESSION['description'] ?></textarea>
                 </div>
             </div>
             <?php
