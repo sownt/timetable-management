@@ -4,7 +4,7 @@ $controllers = array(
     'home' => ['display', 'error'],
     'lecture' => ['search', 'register', 'register_confirm', 'register_complete', 'update'],
     'schedule' => ['search', 'register', 'update'],
-    'teacher' => ['search', 'register', 'update'],
+    'teacher' => ['search', 'register', 'update', 'update_confirm', 'update_complete'],
 );
 
 if (isset($_GET['controller'])) {

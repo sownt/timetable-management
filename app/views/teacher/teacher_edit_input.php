@@ -1,55 +1,50 @@
 <?php
 
-$specializations = array(
-    "001" => "Khoa học máy tính",
-    "002" => "Khoa học dữ liệu",
-    "003" => "Hải dương học"
-);
+    if (!isset($_GET["id"])) {
+        // header('Location: index.php');
+        $teacher_id = 1;
+    }
+    else {
+        $teacher_id = $_GET["id"];
+    }
+    require_once('app/models/teacher.php');
+    $teacher_z = Teacher::get($teacher_id);
+    $teacher = array();
+    $teacher["id"] = $teacher_z->id;
+    $teacher["name"] = $teacher_z->name;
+    $teacher["specialization"] = $teacher_z->specialized;
+    $teacher["degree"] = $teacher_z->degree;
+    $teacher["avatar"] = $teacher_z->avatar;
+    $teacher["description"] = $teacher_z->description;
 
-$degrees = array(
-    "001" => "Cử nhân",
-    "002" => "Thạc sĩ",
-    "003" => "Tiến sĩ",
-    "004" => "Phó giáo sư",
-    "005" => "Giáo sư"
-);
+    $specializations = array(
+        "001" => "Khoa học máy tính",
+        "002" => "Khoa học dữ liệu",
+        "003" => "Hải dương học"
+    );
+
+    $degrees = array(
+        "001" => "Cử nhân",
+        "002" => "Thạc sĩ",
+        "003" => "Tiến sĩ",
+        "004" => "Phó giáo sư",
+        "005" => "Giáo sư"
+    );
 
 ?>
 
 <?php
+    // Validate
 
-if (!isset($is_access)) {
-    header('Location: ../home/error.php');
-}
-
-// Validate
-
-// Requirements
-$is_empty_name = false;
-$is_empty_specialization = false;
-$is_empty_degree = false;
-$is_epmty_description = false;
-$is_name_exceed_length_limit = false;
-$is_desc_exceed_length_limit = false;
-$name_length_limit = 100;
-$desc_length_limit = 1000;
-
-session_start();
-$selected_image_path = "Chọn ảnh";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $_SESSION = $_POST;
-    $_SESSION["avatar"] = $teacher["avatar"];
-    if ($_FILES["avatar"]["error"] === 0) {
-        $_SESSION["is_change_avatar"] = "1";
-    } else {
-        $_SESSION["is_change_avatar"] = "0";
-    }
-
-    $teacher["name"] = $_SESSION["name"];
-    $teacher["specialization"] = $_SESSION["specialization"];
-    $teacher["degree"] = $_SESSION["degree"];
-    $teacher["description"] = $_SESSION["description"];
+    // Requirements
+    $is_empty_name = false;
+    $is_empty_specialization = false;
+    $is_empty_degree = false;
+    $is_epmty_description = false;
+    $is_name_exceed_length_limit = false;
+    $is_desc_exceed_length_limit = false;
+    $name_length_limit = 100;
+    $desc_length_limit = 1000;
 
     if (!isset($_POST["name"]) || empty($_POST["name"])) {
         $is_empty_name = true;
@@ -72,34 +67,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (strlen(htmlspecialchars($_POST["description"])) > $desc_length_limit) {
             $is_desc_exceed_length_limit = true;
         }
-    }
-    if (
-        !$is_empty_name &&
-        !$is_empty_specialization &&
-        !$is_empty_degree &&
-        !$is_epmty_description &&
-        !$is_name_exceed_length_limit &&
-        !$is_desc_exceed_length_limit
-    ) {
-        if (strcmp($_SESSION["is_change_avatar"], "1") === 0) {
-            $info = pathinfo($_FILES["avatar"]["name"]);
-            $filename = $info["filename"];
-            $stime = date("YmdHis");
-            $teacher_id = $_SESSION["id"];
-            $ext = $info["extension"];
-            $new_name = "{$filename}_{$stime}_{$teacher_id}.{$ext}";
-            $new_avatar = "web/avatar/tmp/$new_name";
-            $moved = move_uploaded_file($_FILES["avatar"]["tmp_name"], $new_avatar);
-            $_SESSION["new_avatar"] = $new_avatar;
+        if (
+            !$is_empty_name && 
+            !$is_empty_specialization && 
+            !$is_empty_degree && 
+            !$is_epmty_description && 
+            !$is_name_exceed_length_limit && 
+            !$is_desc_exceed_length_limit
+        ) {
+            if (strcmp($_SESSION["is_change_avatar"], "1") === 0) {
+                $info = pathinfo($_FILES["avatar"]["name"]);
+                $filename = $info["filename"];
+                $stime = date("YmdHis");
+                $teacher_id = $_SESSION["id"];
+                $ext = $info["extension"];
+                $new_name = "{$filename}_{$stime}_{$teacher_id}.{$ext}";
+                $new_avatar = "web/avatar/tmp/$new_name";
+                $moved = move_uploaded_file($_FILES["avatar"]["tmp_name"], $new_avatar);
+                $_SESSION["new_avatar"] = $new_avatar;
+                $_SESSION["original_new_avatar_name"] = $_FILES["avatar"]["name"];
+            }
+            header("Location: ./?controller=teacher&action=update_confirm");
         }
         header("Location: app/views/teacher/teacher_edit_confirm.php");
     }
-} else {
-    if (array_key_exists("is_back", $_SESSION)) {
-        if (strcmp($_SESSION["is_back"], "1") === 0) {
-            $_SESSION["is_back"] = "0";
-            if (array_key_exists("is_change_avatar", $_SESSION) && strcmp($_SESSION["is_change_avatar"], "1") === 0) {
-                $selected_image_path = $_SESSION["avatar"]["name"];
+    else {
+        if (array_key_exists("is_back", $_SESSION)) {
+            if (strcmp($_SESSION["is_back"], "1") === 0) {
+                $_SESSION["is_back"] = "0";
+                if (array_key_exists("is_change_avatar", $_SESSION) && strcmp($_SESSION["is_change_avatar"], "1") === 0) {
+                    $selected_image_path = $_SESSION["original_new_avatar_name"];
+                }
+            }
+            else {
+                session_destroy();
             }
         } else {
             session_destroy();
@@ -125,10 +126,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <?php include_once('app/views/header.php'); session_start(); ?>
+    <?php include_once('app/views/header.php') ?>
     <div class="container">
         <div class="row justify-content-center mb-4">
-            <form class="col-sm-10 pt-4" action="" method="POST" enctype="multipart/form-data">
+            <form class="border col-sm-10 pt-4" action="" method="POST" enctype="multipart/form-data">
 
                 <!-- Name -->
                 <div class="form-group row">
@@ -234,6 +235,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
+    <?php include_once('app/views/footer.php') ?>
 
     <script type="application/javascript">
         // Show the file name of selected image
@@ -245,7 +247,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Prevent from resubmitting form
         if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
+            window.history.replaceState(null, null, window.location.href );
         }
     </script>
 
