@@ -104,7 +104,7 @@
 
     $password="";
 
-    $database_name="test";
+    $database_name="timetable_management";
     $conn = mysqli_connect($server_name, $username, $password, $database_name);
     $sql = "SELECT * FROM subjects";
 
