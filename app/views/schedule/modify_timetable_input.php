@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     if (count($errors) == 0) {
         session_start();
         $_SESSION['schedule_data'] = $_POST;
-        header("location: schedule_edit_confirm.php");
+        header("location: modify_timetable_confirm.php");
         exit();
     }
 }

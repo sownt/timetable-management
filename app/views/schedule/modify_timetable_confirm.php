@@ -3,7 +3,7 @@ session_start();
 $schedule_data = $_SESSION['schedule_data'];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //insert db..
-    header('Location: ./schedule_edit_complete.php');
+    header('Location: ./modify_timetable_complete.php');
 }
 ?>
 <!DOCTYPE html>
@@ -13,14 +13,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sửa thời khóa biểu (confirm)</title>
-    <link rel="stylesheet" href="./edit.css">
+    <link rel="stylesheet" href="/web/css/edit.css">
 </head>
 <body>
     <main>
-        <form 
-            action="<?php echo $SERVER['PHP_SELF']; ?>",
-            method="POST"
-        >
+        <form method="POST">
         <div class="center">
             <div class="khoahoc">
                 <div class="label">
@@ -38,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <select  disabled="disabled" name="subject_id" id="subject_id">
                     <option disabled selected value="<?= $schedule_data['subject_id'] ?>">
-                        <?= $schedule_data['subject_id'] ?></option>
+                        <?= $schedule_data['subject_text'] ?></option>
                 </select>
             </div>
 
@@ -46,9 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="label">
                     <label for="giaovien">Giáo viên</label>
                 </div>
-                <select class= "cf" disabled="disabled" name="teachers_id" id="teachers_id">
+                <select disabled="disabled" name="teachers_id" id="teachers_id">
                     <option disabled selected value="<?= $schedule_data['teachers_id'] ?>">
-                        <?= $schedule_data['teachers_id'] ?></option>
+                        <?= $schedule_data['teachers_text'] ?></option>
                 </select>
             </div>
 
@@ -84,8 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="button1">
-                <input class="button" formaction="./schedule_edit_input.php?edit=true" type="submit" name="submit" value="Sửa lại" />
-                <input class="button" type="submit" name="submit" value="Sửa" />
+                <input class="button" formaction="./modify_timetable_input.php?edit=true" type="submit" name="submit" value="Sửa lại" />
+                <input class="button" type="submit" name="schedule_register" value="Sửa" />
             </div>
         </div>
         </form>

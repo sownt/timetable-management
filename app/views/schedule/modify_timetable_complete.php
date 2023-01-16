@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sửa thời khóa biểu (complete)</title>
-    <link rel="stylesheet" href="./edit.css">
+    <link rel="stylesheet" href="/web/css/edit.css">
 </head>
 <body>
     <main>
@@ -16,7 +16,7 @@
             <div class="center">
                 <div class="complete">
                     <div>Bạn đã đăng ký thành công</div>
-                    <div><a href="./base.php">Trở về trang chủ</a></div>
+                    <div><a href="/app/views/base.php">Trở về trang chủ</a></div>
                 </div>
             </div>
         </form>
