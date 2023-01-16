@@ -3,8 +3,8 @@
 $YEAR = array("1", "2", "3", "4");
 $WEEK_DAY = array("2", "3", "4", "5", "6", "7", "8");
 $LESSION = array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-$subject = array("001" => "Hải Dương Học", "002" => "Khoa Học Máy Tính", "003" => "Khoa Học Dữ Liệu");
-$teachers = array("001" => "Hoang Nghia Phong", "002" => "Dinh Trong Phuc", "003" => "Hoang Ha Giang");
+// $subject = array("001" => "Hải Dương Học", "002" => "Khoa Học Máy Tính", "003" => "Khoa Học Dữ Liệu");
+// $teachers = array("001" => "Hoang Nghia Phong", "002" => "Dinh Trong Phuc", "003" => "Hoang Ha Giang");
 ?>
 
 <body>
@@ -15,10 +15,9 @@ $teachers = array("001" => "Hoang Nghia Phong", "002" => "Dinh Trong Phuc", "003
             document.querySelector(`[name="${nameField}"]`).value = selectObj.options[selectObj.selectedIndex].text;
         }
     </script>
-    <div class="wrapper">
-        <div id="error-box">
-        </div>
+    <div class="container p-5">
         <form method="POST">
+            <div class="text-center mb-5"><h1>Đăng ký thời khóa biểu</h1></div>
             <?php if (isset($errors['school_year'])) : ?>
                 <div class="error"><?= $errors['school_year'] ?> </div>
             <?php endif; ?>
@@ -90,9 +89,9 @@ $teachers = array("001" => "Hoang Nghia Phong", "002" => "Dinh Trong Phuc", "003
             <?php if (isset($errors['lession_id'])) : ?>
                 <div class="error"><?= $errors['lession_id'] ?> </div>
             <?php endif; ?>
-            <div class="form-item">
-                <p>Tiết</p>
-                <div>
+            <div class="row mb-3">
+                <label for="lession_id[]" class="col-sm-2 col-form-label">Tiết</label>
+                <div class="col-sm-10">
                     <?php foreach ($LESSION as $val) : ?>
                         <div style="display: inline-block; margin-right: 10px; line-height: 36px;">
                             <input <?= isset($schedule_data['lession_id']) && in_array($val, $schedule_data['lession_id']) ? 'checked' : '' ?> id="lession_<?= $val ?>" type="checkbox" name="lession_id[]" value="<?= $val ?>">
@@ -111,9 +110,8 @@ $teachers = array("001" => "Hoang Nghia Phong", "002" => "Dinh Trong Phuc", "003
                 </p>
                 <textarea name="notes" id="notes" rows="6" cols="80"><?= isset($schedule_data) ? $schedule_data['notes'] : '' ?></textarea>
             </div>
-
-            <div class="form-item submit-wrapper">
-                <input type="submit" name="submit" value="Xác Nhận">
+            <div class="text-center">
+                <input class="btn btn-primary" type="submit" name="submit" value="Xác Nhận">
             </div>
         </form>
     </div>
