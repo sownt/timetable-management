@@ -34,4 +34,30 @@ class Teacher
 
     return $list;
   }
+
+  static function get($id)
+  {
+    $list = [];
+    $db = DB::getInstance();
+    $req = $db->query("SELECT * FROM teachers WHERE id = $id");
+    
+    foreach ($req->fetchAll() as $item) {
+      $list[] = new Teacher($item['id'], $item['name'], $item['avatar'], $item['description'], $item['specialized'], $item['degree'], $item['updated'], $item['created']);
+    }
+    return $list[0];
+  }
+
+  static function update($id, $name, $specialized, $degree, $avatar, $description)
+  {
+    $db = DB::getInstance();
+    $req = $db->prepare('UPDATE teachers SET name = :name, specialized = :specialized, degree = :degree, avatar = :avatar, description = :descriptiion, updated = now() WHERE id = :id');
+    $req->execute(array(
+      'name' => $name,
+      'specialized' => $specialized,
+      'degree' => $degree,
+      'avatar' => $avatar,
+      'description' => $description,
+      'id' => $id
+    ));
+  }
 }

@@ -1,5 +1,22 @@
 <?php
 
+    if (!isset($_GET["id"])) {
+        // header('Location: index.php');
+        $teacher_id = 1;
+    }
+    else {
+        $teacher_id = $_GET["id"];
+    }
+    require_once('app/models/teacher.php');
+    $teacher_z = Teacher::get($teacher_id);
+    $teacher = array();
+    $teacher["id"] = $teacher_z->id;
+    $teacher["name"] = $teacher_z->name;
+    $teacher["specialization"] = $teacher_z->specialized;
+    $teacher["degree"] = $teacher_z->degree;
+    $teacher["avatar"] = $teacher_z->avatar;
+    $teacher["description"] = $teacher_z->description;
+
     $specializations = array(
         "001" => "Khoa học máy tính",
         "002" => "Khoa học dữ liệu",
@@ -17,11 +34,6 @@
 ?>
 
 <?php
-
-    if (!isset($is_access)) {
-        header('Location: ../home/error.php');
-    }
-
     // Validate
 
     // Requirements
@@ -92,8 +104,9 @@
                 $new_avatar = "web/avatar/tmp/$new_name";
                 $moved = move_uploaded_file($_FILES["avatar"]["tmp_name"], $new_avatar);
                 $_SESSION["new_avatar"] = $new_avatar;
+                $_SESSION["original_new_avatar_name"] = $_FILES["avatar"]["name"];
             }
-            header("Location: app/views/teacher/teacher_edit_confirm.php");
+            header("Location: ./?controller=teacher&action=update_confirm");
         }
     }
     else {
@@ -101,7 +114,7 @@
             if (strcmp($_SESSION["is_back"], "1") === 0) {
                 $_SESSION["is_back"] = "0";
                 if (array_key_exists("is_change_avatar", $_SESSION) && strcmp($_SESSION["is_change_avatar"], "1") === 0) {
-                    $selected_image_path = $_SESSION["avatar"]["name"];
+                    $selected_image_path = $_SESSION["original_new_avatar_name"];
                 }
             }
             else {
@@ -127,9 +140,10 @@
     <title>Edit teacher</title>
 </head>
 <body>
+    <?php include_once('app/views/header.php') ?>
     <div class="container">
         <div class="row justify-content-center mb-4">
-            <form class="border border-primary col-sm-10 pt-4" action="" method="POST" enctype="multipart/form-data">
+            <form class="border col-sm-10 pt-4" action="" method="POST" enctype="multipart/form-data">
 
                 <!-- Name -->
                 <div class="form-group row">
@@ -237,6 +251,7 @@
             </form>
         </div>
     </div>
+    <?php include_once('app/views/footer.php') ?>
 
     <script type="application/javascript">
 
@@ -249,7 +264,7 @@
 
         // Prevent from resubmitting form
         if (window.history.replaceState) {
-            window.history.replaceState( null, null, window.location.href );
+            window.history.replaceState(null, null, window.location.href );
         }
     </script>
 
