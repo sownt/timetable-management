@@ -1,97 +1,90 @@
-<!-- Tìm kiếm, xem chi tiết thông tin giáo viên -->
-<?php
-include 'connect.php';
-?>
-<?php
-// Tìm kiếm giáo viên
-if(isset($_POST['search']))
-{
-    $search = $_POST['search'];
-    $sql = "SELECT * FROM teacher WHERE name LIKE '%$search%'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0)
-    {
-        while($row = mysqli_fetch_assoc($result))
-        {
-            echo "<div class='teacher'>";
-            echo "<div class='teacher-img'>";
-            echo "<img src='images/teacher/".$row['image']."'>";
-            echo "</div>";
-            echo "<div class='teacher-info'>";
-            echo "<h3>".$row['name']."</h3>";
-            echo "<p>".$row['info']."</p>";
-            echo "</div>";
-            echo "</div>";
-        }
-    }
-    else
-    {
-        echo "Không tìm thấy giáo viên";
-    }
-}
-?>
-<?php
-// Xem chi tiết thông tin giáo viên
-if(isset($_GET['id']))
-{
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM teacher WHERE id = $id";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0)
-    {
-        while($row = mysqli_fetch_assoc($result))
-        {
-            echo "<div class='teacher'>";
-            echo "<div class='teacher-img'>";
-            echo "<img src='images/teacher/".$row['image']."'>";
-            echo "</div>";
-            echo "<div class='teacher-info'>";
-            echo "<h3>".$row['name']."</h3>";
-            echo "<p>".$row['info']."</p>";
-            echo "</div>";
-            echo "</div>";
-        }
-    }
-    else
-    {
-        echo "Không tìm thấy giáo viên";
-    }
-}
-?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Trường học</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="web/css/style.css">
-</head>
 <body>
-    <div class="header">
-        <div class="logo">
-            <a href="index.php"><img src="web/images/logo.png"></a>
+    <?php include_once('app/views/header.php');
+    session_start(); ?>
+    <div class="container p-5">
+        <form method="POST" enctype="multipart/form-data" class="mb-5">
+            <div class="text-center mb-5">
+                <h1>Tìm kiếm giáo viên</h1>
+            </div>
+
+            <div class="row mb-3">
+                <label for="" class="col-sm-2 col-form-label">Bộ môn</label>
+                <div class="col-sm-10">
+                    <select class="form-select" aria-label="Default select example" name="school-year">
+                        <option selected>Chọn khóa</option>
+                        <option value="1">Năm 1</option>
+                        <option value="2">Năm 2</option>
+                        <option value="3">Năm 3</option>
+                        <option value="3">Năm 4</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="lectureName" class="col-sm-2 col-form-label">Từ khóa</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="lectureName" name="lecture-name" />
+                </div>
+            </div>
+            <?php
+            require_once('app/models/subject.php');
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
+
+            /**
+             * Display error message
+             *
+             * @param string $message
+             * @return void
+             */
+            function onError($message)
+            {
+                echo "<div class=\"row mb-3\"><div class=\"alert alert-danger\" role=\"alert\">$message</div></div>";
+            }
+
+            // Check if form is submitted
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $name = $school_year = "";
+                $valid = true;
+
+                if ($valid) {
+                    header("Location: ./?controller=lecture&action=register_confirm");
+                }
+            }
+
+            $subjects = Subject::all();
+            ?>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            </div>
+        </form>
+        <div class="text-center mb-3">
+            Số giáo viên tìm thấy: <?= count($subjects) ?>
         </div>
-        <div class="menu">
-            <ul>
-                <li><a href="index.php">Trang chủ</a></li>
-                <li><a href="student.php">Học sinh</a></li>
-                <li><a href="teacher.php">Giáo viên</a></li>
-                <li><a href="class.php">Lớp học</a></li>
-            </ul>
-        </div>
+        <?php if (count($subjects) != 0) { ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tên giáo viên</th>
+                    <th scope="col">Bộ môn</th>
+                    <th scope="col">Mô tả chi tiết</th>
+                    <th scope="col">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php for ($i = 0; $i < count($subjects); $i++) { ?>
+                <tr>
+                    <th scope="row"><?= $i + 1 ?></th>
+                    <td><?= $subjects[$i]->name ?></td>
+                    <td><?= $subjects[$i]->school_year ?></td>
+                    <td><?= $subjects[$i]->description ?></td>
+                    <td></td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+        <?php } ?>
     </div>
-    <div class="content">
-        <div class="search">
-            <form action="teacher.php" method="POST">
-                <input type="text" name="search" placeholder="Tìm kiếm giáo viên">
-                <input type="submit" name="submit" value="Tìm kiếm">
-            </form>
-        </div>
-    </div>
-    <div class="footer">
-        <p>Trường học</p>
-    </div>
+    <?php include_once('app/views/footer.php'); ?>
 </body>
-</html>
-
-

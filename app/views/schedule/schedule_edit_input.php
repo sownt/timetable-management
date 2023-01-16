@@ -1,135 +1,204 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/web/css/edit.css">
-</head>
 <body>
-    <main>
-        <form 
-            action="<?php echo $SERVER['PHP_SELF']; ?>",
-            method="GET"
-        >
-        <div class="center">
-            <div class="khoahoc">
-                <div class="label">
-                    <label for="khoahoc">Khóa học</label>
-                </div>
-                <select name="DSkhoahoc">
-                    <option>Năm 1</option>
-                    <option>Năm 2</option>
-                    <option>Năm 3</option>
-                    <option>Năm 4</option>
-                </select>
+    <?php include_once('app/views/header.php');
+    session_start(); ?>
+    <div class="container p-5">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="text-center mb-5">
+                <h1>Sửa TKB</h1>
             </div>
-
-            <div class="monhoc">
-                <div class="label">
-                    <label for="monhoc">Môn học</label>
+            <div class="row mb-3">
+                <label for="lectureName" class="col-sm-2 col-form-label">Tên môn học</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="lectureName" name="lecture-name" value="<?= $_SESSION['name'] ?>">
                 </div>
-                <select name="DSkhoahoc">
-                    <option>Môn học 01</option>
-                    <option>Môn học 02</option>
-                    <option>Môn học 03</option>
-                    <option>Môn học 04</option>
-                </select>
             </div>
-
-            <div class="giaovien">
-                <div class="label">
-                    <label for="giaovien">Giáo viên</label>
+            <div class="row mb-3">
+                <label for="" class="col-sm-2 col-form-label">Khóa học</label>
+                <div class="col-sm-10">
+                    <select class="form-select" aria-label="Default select example" name="school-year">
+                        <option selected>Chọn khóa</option>
+                        <option value="1">Năm 1</option>
+                        <option value="2">Năm 2</option>
+                        <option value="3">Năm 3</option>
+                        <option value="3">Năm 4</option>
+                    </select>
                 </div>
-                <select name="DSkhoahoc">
-                    <option>Giáo viên 01</option>
-                    <option>Giáo viên 02</option>
-                    <option>Giáo viên 03</option>
-                    <option>Giáo viên 04</option>
-                </select>
             </div>
-
-            <div class="thu">
-                <div class="label">
-                    <label for="thu">Thứ</label>
+            <div class="row mb-3">
+                <label for="" class="col-sm-2 col-form-label">Môn học</label>
+                <div class="col-sm-10">
+                    <select class="form-select" aria-label="Default select example" name="school-year">
+                        <option selected>Chọn khóa</option>
+                        <option value="1">Năm 1</option>
+                        <option value="2">Năm 2</option>
+                        <option value="3">Năm 3</option>
+                        <option value="3">Năm 4</option>
+                    </select>
                 </div>
-                <select name="DSkhoahoc">
-                    <option>Thứ hai</option>
-                    <option>Thứ ba</option>
-                    <option>Thứ tư</option>
-                    <option>Thứ năm</option>
-                    <option>Thứ sáu</option>
-                    <option>Thứ bảy</option>
-                    <option>Chủ Nhật</option>
-                </select>
             </div>
-
-            <div class="tiethoc">
-                <div class="label">
-                    <label for="tiethoc">Tiết học</label>
+            <div class="row mb-3">
+                <label for="" class="col-sm-2 col-form-label">Giáo viên</label>
+                <div class="col-sm-10">
+                    <select class="form-select" aria-label="Default select example" name="school-year">
+                        <option selected>Chọn khóa</option>
+                        <option value="1">Năm 1</option>
+                        <option value="2">Năm 2</option>
+                        <option value="3">Năm 3</option>
+                        <option value="3">Năm 4</option>
+                    </select>
                 </div>
-                <div class="khung">
-                    <div class="dong1">
-                        <span class="chontiethoc">
-                            <input type="checkbox" name="" value="" />
-                            <p>Tiết 1</p>
-                        </span>
-                        <span class="chontiethoc">
-                            <input type="checkbox" name="" value=""/>
-                            <p>Tiết 2</p>
-                        </span>
-                        <span class="chontiethoc">
-                            <input type="checkbox" name="" value=""/>
-                            <p>Tiết 3</p>
-                        </span>
-                        <span class="chontiethoc">
-                            <input type="checkbox" name="" value=""/>
-                            <p>Tiết 4</p>
-                        </span>
-                        <span class="chontiethoc">
-                            <input type="checkbox" name="" value=""/>
-                            <p>Tiết 5</p>
-                        </span>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-2 col-form-label">Thứ</label>
+                <div class="col-sm-10">
+                    <select class="form-select" aria-label="Default select example" name="school-year">
+                        <option selected>Chọn khóa</option>
+                        <option value="1">Năm 1</option>
+                        <option value="2">Năm 2</option>
+                        <option value="3">Năm 3</option>
+                        <option value="3">Năm 4</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-2 col-form-label">Tiết học</label>
+                <div class="col-sm-10">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                        <label class="form-check-label" for="inlineCheckbox1">1</label>
                     </div>
-                    
-                    <div class="dong2">
-                        <span class="chontiethoc">
-                            <input type="checkbox" name="" value="" />
-                            <p>Tiết 6</p>
-                        </span>
-                        <span class="chontiethoc">
-                            <input type="checkbox" name="" value=""/>
-                            <p>Tiết 7</p>
-                        </span>
-                        <span class="chontiethoc">
-                            <input type="checkbox" name="" value=""/>
-                            <p>Tiết 8</p>
-                        </span>
-                        <span class="chontiethoc">
-                            <input type="checkbox" name="" value=""/>
-                            <p>Tiết 9</p>
-                        </span>
-                        <span class="chontiethoc">
-                            <input type="checkbox" name="" value=""/>
-                            <p>Tiết 10</p>
-                        </span>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                        <label class="form-check-label" for="inlineCheckbox2">2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
+                        <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
                     </div>
                 </div>
             </div>
-
-            <div class="chuy">
-                <div class="label">
-                    <label for="chuy">Chú ý</label>
+            <div class="row mb-3">
+                <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">Chú ý</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"><?= $_SESSION['description'] ?></textarea>
                 </div>
-                <textarea rows="5" cols="20" maxlength="20"></textarea>
             </div>
+            <div class="row mb-3">
+                <label for="avatar" class="col-sm-2 col-form-label">Avatar</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="file" id="avatar" name="avatar">
+                </div>
+            </div>
+            <?php
+            require_once('app/models/subject.php');
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
 
-            <div class="button1">
-                <input class="button" type="submit" name="" value="Xác nhận" />
+            /**
+             * Display error message
+             *
+             * @param string $message
+             * @return void
+             */
+            function onError($message)
+            {
+                echo "<div class=\"row mb-3\"><div class=\"alert alert-danger\" role=\"alert\">$message</div></div>";
+            }
+
+            // Check if form is submitted
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $name = $target_file = $school_year = "";
+                $valid = true;
+
+                // Validate name
+                if (isset($_POST['lecture-name']) && $valid) {
+                    $name = $_POST['lecture-name'];
+                    $_SESSION['name'] = $name;
+                    if (strlen($name) == 0) {
+                        onError("Hãy nhập tên môn học.");
+                        $valid = false;
+                    }
+                    if (strlen($name) > 100) {
+                        onError("Không nhập quá 100 ký tự.");
+                        $valid = false;
+                    }
+                }
+
+                // Validate school year
+                if (isset($_POST['school-year']) && $valid) {
+                    $school_year = $_POST['school-year'];
+                    $_SESSION['school_year'] = $school_year;
+                    if ($school_year == 0) {
+                        onError("Hãy nhập khóa học.");
+                        $valid = false;
+                    }
+                }
+
+                // Validate description
+                if (isset($_POST['description']) && $valid) {
+                    $description = $_POST['description'];
+                    $_SESSION['description'] = $description;
+                    if (strlen($description) == 0) {
+                        onError("Hãy nhập mô tả chi tiết.");
+                        $valid = false;
+                    }
+                    if (strlen($description) > 1000) {
+                        onError("Không nhập quá 1000 ký tự.");
+                        $valid = false;
+                    }
+                }
+
+                if ($valid) {
+                    if ($_FILES["avatar"]["size"] > 0) {
+                        $target_dir = "web/uploads/";
+                        $uploaded = pathinfo($_FILES["avatar"]["name"]);
+                        $target_file = $target_dir . $uploaded['filename'] . "_" . date("YmdHis") . "." . $uploaded['extension'];
+                        $uploadOk = 1;
+                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                        $check = getimagesize($_FILES["avatar"]["tmp_name"]);
+
+                        // Create uploads folder if not exists
+                        if (!is_dir($target_dir)) {
+                            if (!@mkdir($target_dir, 0777, true)) {
+                                $error = error_get_last();
+                                $valid = false;
+                            }
+                        }
+
+                        if ($check !== false) {
+                            $uploadOk = 1;
+                        } else {
+                            $valid = false;
+                            $uploadOk = 0;
+                        }
+
+
+                        if ($uploadOk != 0 && $valid) {
+                            echo "<script>console.log(\"" . $target_file . "\")</script>";
+                            if (@move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file)) {
+                                echo "<script>console.log(\"The file " . htmlspecialchars(basename($_FILES["avatar"]["name"])) . " has been uploaded.\")</script>";
+                                $_SESSION['avatar'] = $target_file;
+                            } else {
+                                $valid = false;
+                                echo "<script>console.log(\"Sorry, there was an error uploading your file.\")</script>";
+                            }
+                        }
+                    } else {
+                        onError("Hãy chọn avatar.");
+                        $valid = false;
+                    }
+                }
+
+                if ($valid) {
+                    header("Location: ./?controller=lecture&action=register_confirm");
+                }
+            }
+            ?>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Xác nhận</button>
             </div>
-        </div>
         </form>
-    </main>
+    </div>
+    <?php include_once('app/views/footer.php'); ?>
 </body>
-</html>

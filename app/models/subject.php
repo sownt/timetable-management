@@ -24,7 +24,7 @@ class Subject
   {
     $list = [];
     $db = DB::getInstance();
-    $req = $db->query('SELECT * FROM admins');
+    $req = $db->query('SELECT * FROM subjects');
 
     foreach ($req->fetchAll() as $item) {
       $list[] = new Subject($item['id'], $item['name'], $item['avatar'], $item['description'], $item['school_year'], $item['updated'], $item['created']);

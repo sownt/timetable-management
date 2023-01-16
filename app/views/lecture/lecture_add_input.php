@@ -26,7 +26,7 @@
             <div class="row mb-3">
                 <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">Mô tả chi tiết</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"><?= $_SESSION['description'] ?></textarea>
                 </div>
             </div>
             <div class="row mb-3">
