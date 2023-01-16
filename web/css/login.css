@@ -161,10 +161,8 @@ span.validate-tooltip {
 
 .wrapper {
     width: 500px;
-    background: #fff;
     margin: 20px auto;
     min-height: 200px;
-    border: 1px solid #f3f3f3;
 }
 
 .wrapper .inner-warpper {

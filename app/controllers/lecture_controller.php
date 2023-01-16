@@ -26,4 +26,12 @@ class LectureController extends BaseController
     {
         $this->render(file: 'lecture_edit_input', data: array('title' => 'Sửa môn học'));
     }
+    function update_confirm()
+    {
+        $this->render(file: 'lecture_edit_confirm', data: array('title' => 'Xác nhận sửa môn học'));
+    }
+    function update_complete()
+    {
+        $this->render(file: 'lecture_edit_complete', data: array('title' => 'Sửa môn học hoàn tất!'));
+    }
 }
