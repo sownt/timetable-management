@@ -1,193 +1,168 @@
-<!DOCTYPE html>
-<html lang='en'>
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- <link rel="stylesheet" href="web/css/style.css" /> -->
-    </script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <!-- jQuery library -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <style type="text/css">
-        .confirm-form {
-            width: 100%;
-            height: 100%;
-            max-width: 500px;
-            margin: 10px auto;
-            padding: 10px;
-            border: 1px solid #e0de4d;
-        }
-
-        .button {
-            background-color: #e0de4d;
-            padding: 15px 45px;
-            margin-top: 30px;
-            margin-left: 25%;
-            border-radius: 10px;
-            border: 1px solid #fbff00;
-        }
-
-        .button:hover {
-            opacity: 0.8;
-        }
-
-        .form {
-            margin-left: 5%;
-        }
-
-        .title {
-            display: flex;
-            margin-bottom: 10px;
-        }
-
-        .input-text {
-            background-color: #e0de4d;
-            padding: 10px 47px 10px 7px;
-            margin-right: 25px;
-            border: 1px solid #e0de4d;
-            width: 35%;
-        }
-
-        .select {
-            border: 1px solid #e0de4d;
-            width: 50%;
-        }
-
-        .sup {
-            color: rgb(255, 0, 0);
-        }
-    </style>
-
-    <title>Sửa môn học</title>
-</head>
-
 <body>
     <?php
-    session_start();
-    // Code PHP xử lý validate
-    $error = array();
-    $data = array();
-    $action = '';
-    $date = date("YmdHis");
-    $_SESSION = $_POST;
+    include_once('app/views/header.php');
+    require_once('app/models/subject.php');
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    $id = 0; $current_lecture = null;
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $current_lecture = Subject::get($id);
+    } else {
+        header("Location: ./?controller=lecture&action=register");
+    }
 
-    if (!empty($_POST['confirm'])) {
-        // Lấy dữ liệu
-        $_SESSION['subject_name'] = isset($_POST['subject_name']) ? $_POST['subject_name'] : '';
-        $_SESSION['course'] = isset($_POST['course']) ? $_POST['course'] : '--course--';
-        $_SESSION['detail'] = isset($_POST['detail']) ? $_POST['detail'] : '';
-
-        // Kiểm tra định dạng dữ liệu
-        if (empty($_POST['subject_name'])) {
-            $error['subject_name'] = 'Hãy nhập tên môn học.';
+    function isSelect($value, $current_value)
+    {
+        if ($value == $current_value) {
+            echo "selected";
         }
-
-        if ((strlen($_POST['subject_name'])) > 100) {
-            $error['subject_name'] = 'Độ dài quá 100 kí tự';
-        }
-
-        if ((strlen($_POST['detail'])) > 100) {
-            $error['detail'] = 'Độ dài quá 100 kí tự';
-        }
-
-        if (empty($_POST['course']) || $_POST['course'] == '----') {
-            $error['course'] = 'Hãy chọn khóa.';
-        }
-
-        if (empty($_POST['detail'])) {
-            $error['detail'] = 'Hãy nhập mô tả chi tiết';
-        }
-
-        //Thư mục bạn sẽ lưu file upload
-        $target_dir    = "web/avatar/";
-        if (!file_exists($target_dir)) {
-            mkdir($target_dir);
-        }
-        $filename = $_FILES["avatar"]["tmp_name"];
-        $prod = "img";
-        $extension = pathinfo(basename($_FILES["avatar"]["name"]), PATHINFO_EXTENSION); // jpg
-        $newfilename = $prod . "_" . $date . "." . $extension;
-        //Vị trí file lưu tạm trong server (file sẽ lưu trong uploads, với tên giống tên ban đầu)
-        $target_file   = $target_dir . basename($newfilename);
-
-        // Lưu dữ liệu
-        if (empty($error)) {
-            move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
-            $_SESSION['avatar'] = $target_file;
-            header("Location: ./lecture_edit_comfirm.php ");
-        }
+        echo "";
     }
     ?>
-    <form method="post" action="" enctype="multipart/form-data" action=?#?>
-        <fieldset class="confirm-form">
-            <div class="form">
-                <?php echo isset($error['subject_name']) ? $error['subject_name'] : ''; ?> <br />
-                <?php echo isset($error['course']) ? $error['course'] : ''; ?> <br />
-                <?php echo isset($error['gender']) ? $error['gender'] : ''; ?> <br />
-
-                <div class="title">
-                    <div class="input-text">
-                        Tên môn học<sup class="sup">*</sup></div>
-                    <input type='text' id='subject_name' name='subject_name' class="select">
-
+    <div class="container p-5">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="text-center mb-5">
+                <h1>Sửa môn học</h1>
+            </div>
+            <div class="row mb-3">
+                <label for="lectureName" class="col-sm-2 col-form-label">Tên môn học</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="lectureName" name="lecture-name" value="<?= $current_lecture->name ?>">
                 </div>
-
-                <div class="title">
-                    <div class="input-text">
-                        Khóa<sup class="sup">*</sup></div>
-                    <select class="select" name="course">
-                        <option>----</option>
-                        <?php $course = array("0" => "Năm 1", "1" => "Năm 2", "2" =>"Năm 3", "3" => "Năm 4");
-                        foreach ($course as $key => $value) { ?>
-                            <option value="<?= $value ?>"><?= $value ?></option>
-                        <?php } ?>
+            </div>
+            <div class="row mb-3">
+                <label for="" class="col-sm-2 col-form-label">Khóa</label>
+                <div class="col-sm-10">
+                    <select class="form-select" aria-label="Default select example" name="school-year">
+                        <option <?php isSelect($current_lecture->school_year, 0) ?> >Chọn khóa</option>
+                        <option value="1" <?php isSelect($current_lecture->school_year, 1) ?>>Năm 1</option>
+                        <option value="2" <?php isSelect($current_lecture->school_year, 2) ?>>Năm 2</option>
+                        <option value="3" <?php isSelect($current_lecture->school_year, 3) ?>>Năm 3</option>
+                        <option value="3" <?php isSelect($current_lecture->school_year, 4) ?>>Năm 4</option>
                     </select>
                 </div>
-
-                <div class="title">
-                    <div class="input-text">
-                        Mô tả chi tiết<sup class="sup">*</sup></div>
-                    <input type='text' id='detail' name='detail' class="select">
-                </div>
-
-                <div class="title">
-                    <label for="show-avatar" class="input-text">Avatar</label>
-                    <div class="col-sm-10">
-                        <?php
-                        $avatar_path = null;
-                        echo "<img src=\"$avatar_path\" alt=\Avatar of teacher\" class=\"img-thumbnail\" id=\"show-avatar\" style=\"width:260px;height:224px;\">";
-                        ?>
-                        <div class="custom-file mt-3">
-                            <input type="file" class="form-control custom-file-input" id="avatar" name="avatar" accept="image/*">
-                            <label for="avatar" class="custom-file-label">Browse</label>
-                        </div>
-                    </div>
-                </div>
-
-                <input type='submit' class="button" name="confirm" value='Xác nhận' />
             </div>
+            <div class="row mb-3">
+                <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">Mô tả chi tiết</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"><?= $current_lecture->description ?></textarea>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="avatar" class="col-sm-2 col-form-label">Avatar</label>
+                <div class="col-sm-10">
+                    <img src="<?= $current_lecture->avatar ?>" alt="" width="100px">
+                    <input class="form-control" type="file" id="avatar" name="avatar" value="<?= $current_lecture->avatar ?>">
+                </div>
+            </div>
+            <?php
+            /**
+             * Display error message
+             *
+             * @param string $message
+             * @return void
+             */
+            function onError($message)
+            {
+                echo "<div class=\"row mb-3\"><div class=\"alert alert-danger\" role=\"alert\">$message</div></div>";
+            }
 
-        </fieldset>
-    </form>
-    <script>
-        function showImage(src, target) {
-            var fr = new FileReader();
-            fr.onload = function(e) {
-                target.src = this.result;
-            };
-            src.addEventListener("change", function() {
-                fr.readAsDataURL(src.files[0]);
-            });
-        }
-        var src = document.getElementById("avatar");
-        var target = document.getElementById("show-avatar");
-        showImage(src, target);
-    </script>
+            // Check if form is submitted
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $name = $target_file = $school_year = "";
+                $valid = true;
+                session_start();
+                $_SESSION['id'] = $current_lecture->id;
+
+                // Validate name
+                if (isset($_POST['lecture-name']) && $valid) {
+                    $name = $_POST['lecture-name'];
+                    $_SESSION['name'] = $name;
+                    if (strlen($name) == 0) {
+                        onError("Hãy nhập tên môn học.");
+                        $valid = false;
+                    }
+                    if (strlen($name) > 100) {
+                        onError("Không nhập quá 100 ký tự.");
+                        $valid = false;
+                    }
+                }
+
+                // Validate school year
+                if (isset($_POST['school-year']) && $valid) {
+                    $school_year = $_POST['school-year'];
+                    $_SESSION['school_year'] = $school_year;
+                    if ($school_year == 0) {
+                        onError("Hãy nhập khóa học.");
+                        $valid = false;
+                    }
+                }
+
+                // Validate description
+                if (isset($_POST['description']) && $valid) {
+                    $description = $_POST['description'];
+                    $_SESSION['description'] = $description;
+                    if (strlen($description) == 0) {
+                        onError("Hãy nhập mô tả chi tiết.");
+                        $valid = false;
+                    }
+                    if (strlen($description) > 1000) {
+                        onError("Không nhập quá 1000 ký tự.");
+                        $valid = false;
+                    }
+                }
+
+                if ($valid) {
+                    if ($_FILES["avatar"]["size"] > 0) {
+                        $target_dir = "web/uploads/";
+                        $uploaded = pathinfo($_FILES["avatar"]["name"]);
+                        $target_file = $target_dir . $uploaded['filename'] . "_" . date("YmdHis") . "." . $uploaded['extension'];
+                        $uploadOk = 1;
+                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                        $check = getimagesize($_FILES["avatar"]["tmp_name"]);
+
+                        // Create uploads folder if not exists
+                        if (!is_dir($target_dir)) {
+                            if (!@mkdir($target_dir, 0777, true)) {
+                                $error = error_get_last();
+                                $valid = false;
+                            }
+                        }
+
+                        if ($check !== false) {
+                            $uploadOk = 1;
+                        } else {
+                            $valid = false;
+                            $uploadOk = 0;
+                        }
+
+
+                        if ($uploadOk != 0 && $valid) {
+                            echo "<script>console.log(\"" . $target_file . "\")</script>";
+                            if (@move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file)) {
+                                echo "<script>console.log(\"The file " . htmlspecialchars(basename($_FILES["avatar"]["name"])) . " has been uploaded.\")</script>";
+                                $_SESSION['avatar'] = $target_file;
+                            } else {
+                                $valid = false;
+                                echo "<script>console.log(\"Sorry, there was an error uploading your file.\")</script>";
+                            }
+                        }
+                    } else {
+                        $_SESSION['avatar'] = $current_lecture->avatar;
+                    }
+                }
+
+                if ($valid) {
+                    header("Location: ./?controller=lecture&action=update_confirm");
+                }
+            }
+            ?>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Xác nhận</button>
+            </div>
+        </form>
+    </div>
+    <?php include_once('app/views/footer.php'); ?>
 </body>
-
-</html>

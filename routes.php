@@ -2,9 +2,9 @@
 $controllers = array(
     'auth' => ['login', 'reset', 'request'],
     'home' => ['display', 'error'],
-    'lecture' => ['search', 'register', 'register_confirm', 'register_complete', 'update'],
-    'schedule' => ['search', 'register', 'update'],
-    'teacher' => ['search', 'register', 'update', 'update_confirm', 'update_complete'],
+    'lecture' => ['search', 'register', 'register_confirm', 'register_complete', 'update', 'update_confirm', 'update_complete'],
+    'schedule' => ['search', 'register', 'register_confirm', 'register_complete', 'update', 'update_confirm', 'update_complete'],
+    'teacher' => ['search', 'register', 'register_confirm', 'register_complete', 'update', 'update_confirm', 'update_complete'],
 );
 
 if (isset($_GET['controller'])) {

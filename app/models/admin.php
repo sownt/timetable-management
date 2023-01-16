@@ -32,4 +32,17 @@ class Admin
 
     return $list;
   }
+
+  static function login($login_id, $password)
+  {
+    $db = DB::getInstance();
+    $req = $db->prepare('SELECT * FROM admins WHERE login_id = :login_id AND password = :password');
+    $req->execute(array('login_id' => $login_id, 'password' => $password));
+    $item = $req->fetch();
+
+    if (isset($item['id'])) {
+      return new Admin($item['id'], $item['login_id'], $item['password'], $item['activated_flag'], $item['reset_password_token'], $item['updated'], $item['created']);
+    }
+    return null;
+  }
 }

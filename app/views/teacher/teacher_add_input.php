@@ -6,32 +6,32 @@
                 <h1>Thêm mới giáo viên</h1>
             </div>
             <div class="row mb-3">
-                <label for="lectureName" class="col-sm-2 col-form-label">Họ và tên</label>
+                <label for="fullName" class="col-sm-2 col-form-label">Họ và tên</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="lectureName" name="lecture-name" value="<?= $_SESSION['name'] ?>">
+                    <input type="text" class="form-control" id="fullName" name="fullName" value="<?= $_SESSION['name'] ?>">
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="" class="col-sm-2 col-form-label">Bộ môn</label>
+                <label for="specialized" class="col-sm-2 col-form-label">Bộ môn</label>
                 <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="school-year">
-                        <option selected>Chọn khóa</option>
-                        <option value="1">Năm 1</option>
-                        <option value="2">Năm 2</option>
-                        <option value="3">Năm 3</option>
-                        <option value="3">Năm 4</option>
+                    <select class="form-select" aria-label="Default select example" name="specialized" id="specialized">
+                        <option value="0" selected>Chọn bộ môn</option>
+                        <option value="001">Khoa học máy tinh</option>
+                        <option value="002">Khoa học dữ liệu</option>
+                        <option value="003">Hải dương học</option>
                     </select>
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="" class="col-sm-2 col-form-label">Học vị</label>
+                <label for="degree" class="col-sm-2 col-form-label">Học vị</label>
                 <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example" name="school-year">
-                        <option selected>Chọn khóa</option>
-                        <option value="1">Năm 1</option>
-                        <option value="2">Năm 2</option>
-                        <option value="3">Năm 3</option>
-                        <option value="3">Năm 4</option>
+                    <select class="form-select" aria-label="Default select example" name="degree" id="degree">
+                        <option value="0" selected>Chọn học vị</option>
+                        <option value="001">Cử nhân</option>
+                        <option value="002">Thạc sĩ</option>
+                        <option value="003">Tiến sĩ</option>
+                        <option value="004">Phó giáo sư</option>
+                        <option value="005">Giáo sư</option>
                     </select>
                 </div>
             </div>
@@ -42,13 +42,13 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">Mô tả thêm</label>
+                <label for="description" class="col-sm-2 col-form-label">Mô tả thêm</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"><?= $_SESSION['description'] ?></textarea>
+                    <textarea class="form-control" id="description" name="description" rows="3"><?= $_SESSION['description'] ?></textarea>
                 </div>
             </div>
             <?php
-            require_once('app/models/subject.php');
+            require_once('app/models/teacher.php');
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
             error_reporting(E_ALL);
@@ -70,11 +70,11 @@
                 $valid = true;
 
                 // Validate name
-                if (isset($_POST['lecture-name']) && $valid) {
-                    $name = $_POST['lecture-name'];
-                    $_SESSION['name'] = $name;
+                if (isset($_POST['fullName']) && $valid) {
+                    $name = $_POST['fullName'];
+                    $_SESSION['fullName'] = $name;
                     if (strlen($name) == 0) {
-                        onError("Hãy nhập tên môn học.");
+                        onError("Hãy nhập tên giáo viên.");
                         $valid = false;
                     }
                     if (strlen($name) > 100) {
@@ -83,12 +83,22 @@
                     }
                 }
 
-                // Validate school year
-                if (isset($_POST['school-year']) && $valid) {
-                    $school_year = $_POST['school-year'];
-                    $_SESSION['school_year'] = $school_year;
-                    if ($school_year == 0) {
-                        onError("Hãy nhập khóa học.");
+                // Validate specialized
+                if (isset($_POST['specialized']) && $valid) {
+                    $specialized = $_POST['specialized'];
+                    $_SESSION['specialized'] = $specialized;
+                    if ($specialized == 0) {
+                        onError("Hãy chọn bộ môn.");
+                        $valid = false;
+                    }
+                }
+
+                // Validate degree
+                if (isset($_POST['degree']) && $valid) {
+                    $degree = $_POST['degree'];
+                    $_SESSION['degree'] = $degree;
+                    if ($degree == 0) {
+                        onError("Hãy chọn bằng cấp.");
                         $valid = false;
                     }
                 }
@@ -149,7 +159,7 @@
                 }
 
                 if ($valid) {
-                    header("Location: ./?controller=lecture&action=register_confirm");
+                    header("Location: ./?controller=teacher&action=register_confirm");
                 }
             }
             ?>

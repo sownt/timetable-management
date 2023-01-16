@@ -4,10 +4,9 @@
 
         <ul class="nav col-md-4 justify-content-end">
             <li class="nav-item"><a href="." class="nav-link px-2 text-muted">Back to Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Repository</a></li>
+            <li class="nav-item"><a href="https://gitlab.com/sownt/timetable-management" class="nav-link px-2 text-muted">Repo</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Docs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contact Us</a></li>
+            <li class="nav-item"><a href="mailto:email@example.com" class="nav-link px-2 text-muted">Contact Us</a></li>
         </ul>
     </footer>
 </div>
