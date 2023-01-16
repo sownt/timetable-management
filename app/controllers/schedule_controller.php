@@ -60,6 +60,6 @@ class ScheduleController extends BaseController
     }
     function update()
     {
-        $this->render(file: 'classroom_edit_input', data: array('title' => 'Quên mật khẩu'));
+        $this->render(file: 'schedule_edit_input', data: array('title' => 'Quên mật khẩu'));
     }
 }
