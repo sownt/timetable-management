@@ -26,7 +26,7 @@ class Teacher
   {
     $list = [];
     $db = DB::getInstance();
-    $req = $db->query('SELECT * FROM admins');
+    $req = $db->query('SELECT * FROM teachers');
 
     foreach ($req->fetchAll() as $item) {
       $list[] = new Teacher($item['id'], $item['name'], $item['avatar'], $item['description'], $item['specialized'], $item['degree'], $item['updated'], $item['created']);

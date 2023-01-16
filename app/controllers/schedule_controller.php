@@ -1,5 +1,9 @@
 <?php
 require_once('base_controller.php');
+require_once('app/models/subject.php');
+require_once('app/models/teacher.php');
+require_once('app/models/schedule.php');
+
 class ScheduleController extends BaseController
 {
     function __construct()
@@ -12,9 +16,6 @@ class ScheduleController extends BaseController
     }
     function register()
     {
-        // echo $_SERVER['REQUEST_URI'];
-        // echo "<br>";
-        // echo $_SERVER['QUERY_STRING'];
         function validation_schedule($data_schedule){
             $errors = array();
             if (!isset($data_schedule['school_year'])) {
@@ -37,26 +38,52 @@ class ScheduleController extends BaseController
             }
             return $errors;
         }
+        $teachers = Teacher::all();
+        $subjects = Subject::all();
+        $data = array('teachers' => $teachers,'subjects' => $subjects);
         if (isset($_POST['submit'])) {
             $data_schedule = $_POST;
             $errors = validation_schedule($data_schedule);
             if (count($errors) == 0) {
-                $this->render(file: 'schedule_confirm', 
-                                data: array('title' => 'Schedule Confirm','schedule_data' => $_POST));
+                $this->render(file: 'schedule_add_confirm', 
+                                data: array_merge(array('title' => 'Schedule Confirm','schedule_data' => $_POST),$data));
             }
-            else $this->render(file: 'schedule_input', 
-                                data: array('title' => 'Schedule Input','errors' => $errors, 'schedule_data' => $_POST));
+            else $this->render(file: 'schedule_add_input', 
+                            data: array_merge(array('title' => 'Schedule Input',
+                                                    'errors' => $errors, 'schedule_data' => $_POST), $data));
         }
         elseif (isset($_POST['edit_input'])){
-            var_dump($_POST);
-            $this->render(file: 'schedule_input', data: array('title' => 'Schedule Edit Input','schedule_data' => $_POST));
+            $this->render(file: 'schedule_add_input', 
+                        data: array_merge(array('title' => 'Schedule Edit Input','schedule_data' => $_POST),$data));
         }
         elseif (isset($_POST['schedule_register'])){
-            echo "alo";
-            var_dump($_POST);
-            $this->render(file: 'schedule_complete', data: array('title' => 'Schedule Complete',));
+            $data_schedule = $_POST;
+            $errors = validation_schedule($data_schedule);
+
+            if(count($errors) == 0){
+                $idTeachers = array_column($teachers, 'id');
+                $idSubjects = array_column($subjects, 'id');
+                if(in_array($data_schedule['teacher_id'], $idTeachers) &&
+                    in_array($data_schedule['subject_id'], $idSubjects)){
+                        $is_schedule = Schedule::add($data_schedule['school_year'],$data_schedule['subject_id'],
+                                    $data_schedule['teacher_id'],$data_schedule['week_day_id'],
+                                    implode(',', $data_schedule['lession_id']),$data_schedule['notes']);
+                        if ($is_schedule){
+                            $this->render(file: 'schedule_add_complete', data: array('title' => 'Schedule Complete',));
+                        }
+                }else{
+                    echo "loi";
+                }
+
+            }else{
+                $this->render(file: 'schedule_add_input', 
+                                data: array_merge(array('title' => 'Schedule Input',
+                                                        'errors' => $errors, 
+                                                        'schedule_data' => $_POST), $data));
+            }
         }
-        else $this->render(file: 'schedule_input', data: array('title' => 'Schedule Input',));
+        else $this->render(file: 'schedule_add_input', 
+                            data: array_merge(array('title' => 'Schedule Input'),$data));
     }
     function update()
     {

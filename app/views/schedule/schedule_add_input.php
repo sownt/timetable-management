@@ -3,8 +3,8 @@
 $YEAR = array("1", "2", "3", "4");
 $WEEK_DAY = array("2", "3", "4", "5", "6", "7", "8");
 $LESSION = array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-$subject = array("001" => "Hải Dương Học", "002" => "Khoa Học Máy Tính", "003" => "Khoa Học Dữ Liệu");
-$teachers = array("001" => "Hoang Nghia Phong", "002" => "Dinh Trong Phuc", "003" => "Hoang Ha Giang");
+// $subject = array("001" => "Hải Dương Học", "002" => "Khoa Học Máy Tính", "003" => "Khoa Học Dữ Liệu");
+// $teachers = array("001" => "Hoang Nghia Phong", "002" => "Dinh Trong Phuc", "003" => "Hoang Ha Giang");
 ?>
 <body>
     <?php include_once('app/views/header.php'); ?>
@@ -42,9 +42,9 @@ $teachers = array("001" => "Hoang Nghia Phong", "002" => "Dinh Trong Phuc", "003
                 <div class="col-sm-10">
                     <select class="form-select" name="subject_id" id="subject_id" onchange="setTextField(this, 'subject_text')">
                         <option disabled selected value>Chọn môn học</option>
-                        <?php foreach ($subject as $id => $val) : ?>
-                        <option <?= isset($schedule_data['subject_id']) && $schedule_data['subject_id'] == $id ? 'selected' : '' ?> value="<?= $id ?>">
-                            <?= $val ?>
+                        <?php foreach ($subjects as $subject) : ?>
+                        <option <?= isset($schedule_data['subject_id']) && $schedule_data['subject_id'] == $subject->id ? 'selected' : '' ?> value="<?= $subject->id ?>">
+                            <?= $subject->name ?>
                         </option>
                         <?php endforeach; ?>
                     </select>
@@ -61,9 +61,9 @@ $teachers = array("001" => "Hoang Nghia Phong", "002" => "Dinh Trong Phuc", "003
                 <div class="col-sm-10">
                     <select class="form-select" name="teacher_id" id="teacher_id" onchange="setTextField(this,'teacher_text')">
                         <option disabled selected value>Chọn giáo viên</option>
-                        <?php foreach ($teachers as $id => $val) : ?>
-                        <option <?= isset($schedule_data['teacher_id']) && $schedule_data['teacher_id'] == $id ? 'selected' : '' ?> value="<?= $id ?>">
-                            <?= $val ?>
+                        <?php foreach ($teachers as $teacher) : ?>
+                        <option <?= isset($schedule_data['teacher_id']) && $schedule_data['teacher_id'] == $teacher->id ? 'selected' : '' ?> value="<?= $teacher->id ?>">
+                            <?= $teacher->name ?>
                         </option>
                         <?php endforeach; ?>
                     </select>
