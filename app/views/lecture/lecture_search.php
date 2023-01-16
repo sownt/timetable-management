@@ -2,10 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
     <link rel='stylesheet' href='lecture_search.css'>
     <style type='text/css'>
         .td {
@@ -271,7 +267,8 @@
                                 <td>".$school_year."</td>
                                 <td>".$description."</td>
                                 <td>
-                                    <a class='action' onclick='myFunction()'>Xóa</a>
+                                    <a class='action' href='lecture_search_delete.php' id='"; echo $row["id"]; echo "'
+                                    onClick='return confirm('Bạn có thự sự muốn xóa?');'>Xóa</a>
                                     <a class='action' href='lecture_edit.php'>Sửa</a>
                                 </td>
                             </tr>";
@@ -285,7 +282,7 @@
             }
            
         ?>
-        <script>
+        <!-- <script>
             function myFunction() {
                 var x;
                 var r = confirm("Bấm Ok để xóa");
@@ -297,6 +294,6 @@
                 }
                 document.getElementById("demo").innerHTML = x;
             }
-        </script>          
+        </script>           -->
 </body>
 </html>
