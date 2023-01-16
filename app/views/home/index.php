@@ -9,7 +9,7 @@
             <?php if ($_SESSION['username']) {
               echo $_SESSION['username'];
             } else {
-              echo "null";
+              header('Location: ./?controller=auth&action=login');
             } ?>
           </td>
         </tr>
