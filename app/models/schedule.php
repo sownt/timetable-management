@@ -36,4 +36,56 @@ class Schedule
 
     return $list;
   }
+<<<<<<< HEAD
+=======
+
+  static function get($id)
+  {
+    $db = DB::getInstance();
+    $id = intval($id);
+    $req = $db->prepare('SELECT * FROM schedules WHERE id = :id');
+    $req->execute(array('id' => $id));
+    $item = $req->fetch();
+
+    if (isset($item['id'])) {
+      return new Schedule($item['id'], $item['school_year'], $item['subject_id'], $item['teacher_id'], $item['week_day'], $item['lesson'], $item['notes'], $item['updated'], $item['created']);
+    }
+    return null;
+  }
+
+  static function add($school_year, $subject_id, $teacher_id, $week_day, $lesson, $notes)
+  {
+    $db = DB::getInstance();
+    $req = $db->prepare('INSERT INTO schedules (school_year, subject_id, teacher_id, week_day, lesson, notes) VALUES (:school_year, :subject_id, :teacher_id, :week_day, :lesson, :notes)');
+    $req->execute(array('school_year' => $school_year, 'subject_id' => $subject_id, 'teacher_id' => $teacher_id, 'week_day' => $week_day, 'lesson' => $lesson, 'notes' => $notes));
+  }
+
+  static function update($id, $school_year, $subject_id, $teacher_id, $week_day, $lesson, $notes)
+  {
+    $db = DB::getInstance();
+    $req = $db->prepare('UPDATE schedules SET school_year = :school_year, subject_id = :subject_id, teacher_id = :teacher_id, week_day = :week_day, lesson = :lesson, notes = :notes WHERE id = :id');
+    $req->execute(array('id' => $id, 'school_year' => $school_year, 'subject_id' => $subject_id, 'teacher_id' => $teacher_id, 'week_day' => $week_day, 'lesson' => $lesson, 'notes' => $notes));
+  }
+
+  static function delete($id)
+  {
+    $db = DB::getInstance();
+    $id = intval($id);
+    $req = $db->prepare('DELETE FROM schedules WHERE id = :id');
+    $req->execute(array('id' => $id));
+  }
+
+  static function find($school_year, $subject_id, $teacher_id, $week_day, $lesson)
+  {
+    $db = DB::getInstance();
+    $req = $db->prepare('SELECT * FROM schedules WHERE school_year = :school_year AND subject_id = :subject_id AND teacher_id = :teacher_id AND week_day = :week_day AND lesson = :lesson');
+    $req->execute(array('school_year' => $school_year, 'subject_id' => $subject_id, 'teacher_id' => $teacher_id, 'week_day' => $week_day, 'lesson' => $lesson));
+    $item = $req->fetch();
+
+    if (isset($item['id'])) {
+      return new Schedule($item['id'], $item['school_year'], $item['subject_id'], $item['teacher_id'], $item['week_day'], $item['lesson'], $item['notes'], $item['updated'], $item['created']);
+    }
+    return null;
+  }
+>>>>>>> ec9e7b0352ce1378c10c2c2226bb97a19dfb9f02
 }

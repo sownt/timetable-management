@@ -1,37 +1,47 @@
 <body>
-  <?php include_once('app/views/header.php'); ?>
+  <?php include_once('app/views/header.php'); session_start();?>
   <div class="container">
     <div class="border m-auto p-5">
-      <table class="table table-borderless mb-5">
+      <table class="table table-borderless mb-3">
         <tr>
           <th scope="row">Tên login:</th>
-          <td><?= $user ?></td>
+          <td>
+            <?php if ($_SESSION['username']) {
+              echo $_SESSION['username'];
+            } else {
+              echo "null";
+            } ?>
+          </td>
         </tr>
         <tr>
           <th scope="row">Thời gian login:</th>
-          <td><?= $last_active ?></td>
+          <td>
+            <?php if ($_SESSION['last_active']) {
+              echo $_SESSION['last_active'];
+            } else {
+              echo "null";
+            } ?>
+          </td>
         </tr>
       </table>
       <table class="table table-borderless">
         <tr>
-          <th class="text-center" scope="col">Giáo viên</th>
-          <th class="text-center" scope="col">Môn học</th>
-          <th class="text-center" scope="col">Thời khóa biểu</th>
+          <th scope="col">Phòng học</th>
+          <th scope="col">Giáo viên</th>
+          <th scope="col">Môn học</th>
+          <th scope="col">Thời khóa biểu</th>
         </tr>
         <tr>
-          <td class="text-center"><a href="./?controller=teacher&action=search">Tìm kiếm</a></td>
-          <td class="text-center"><a href="./?controller=lecture&action=search">Tìm kiếm</a></td>
-          <td class="text-center"><a href="./?controller=schedule&action=search">Tìm kiếm</a></td>
+          <td><a>Tìm kiếm</a></td>
+          <td><a href="./?controller=teacher&action=search">Tìm kiếm</a></td>
+          <td><a href="./?controller=lecture&action=search">Tìm kiếm</a></td>
+          <td><a href="./?controller=schedule&action=search">Tìm kiếm</a></td>
         </tr>
         <tr>
-          <td class="text-center"><a href="./?controller=teacher&action=register">Đăng ký</a></td>
-          <td class="text-center"><a href="./?controller=lecture&action=register">Đăng ký</a></td>
-          <td class="text-center"><a href="./?controller=schedule&action=register">Đăng ký</a></td>
-        </tr>
-        <tr>
-          <td class="text-center"><a href="./?controller=teacher&action=update">Chỉnh sửa</a></td>
-          <td class="text-center"><a href="./?controller=lecture&action=update">Chỉnh sửa</a></td>
-          <td class="text-center"><a href="./?controller=schedule&action=update">Chỉnh sửa</a></td>
+          <td><a>Đăng ký</a></td>
+          <td><a href="./?controller=teacher&action=register">Đăng ký</a></td>
+          <td><a href="./?controller=lecture&action=register">Đăng ký</a></td>
+          <td><a href="./?controller=schedule&action=register">Đăng ký</a></td>
         </tr>
       </table>
     </div>

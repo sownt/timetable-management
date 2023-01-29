@@ -44,7 +44,11 @@
                 </div>
             </div>
             <?php
+<<<<<<< HEAD
             require_once('app/models/subject.php');
+=======
+            require_once('app/models/schedule.php');
+>>>>>>> ec9e7b0352ce1378c10c2c2226bb97a19dfb9f02
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
             error_reporting(E_ALL);
@@ -70,6 +74,7 @@
                 }
             }
 
+<<<<<<< HEAD
             $subjects = Subject::all();
             ?>
             <div class="text-center">
@@ -102,6 +107,47 @@
                 <?php } ?>
             </tbody>
         </table>
+=======
+            $schedules = Schedule::all();
+            ?>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Tìm kiếm</button>
+            </div>
+        </form>
+        <div class="text-center mb-3">
+            Số giáo viên tìm thấy: <?= count($schedules) ?>
+        </div>
+        <?php if (count($schedules) != 0) { ?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Khóa</th>
+                        <th scope="col">Môn học</th>
+                        <th scope="col">Giáo viên</th>
+                        <th scope="col">Thứ</th>
+                        <th scope="col">Tiết học</th>
+                        <th scope="col" class="text-center">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php for ($i = 0; $i < count($schedules); $i++) { ?>
+                        <tr>
+                            <th scope="row"><?= $i + 1 ?></th>
+                            <td><?= $schedules[$i]->school_year ?></td>
+                            <td><?= $schedules[$i]->subject_id ?></td>
+                            <td><?= $schedules[$i]->teacher_id ?></td>
+                            <td><?= $schedules[$i]->week_day ?></td>
+                            <td><?= $schedules[$i]->lesson ?></td>
+                            <td class="text-center">
+                                <a href="./?controller=schedule&action=search&delete=<?= $schedules[$i]->id ?>" class="btn btn-danger">Xóa</a>
+                                <a href="./?controller=schedule&action=update&id=<?= $schedules[$i]->id ?>" class="btn btn-primary">Sửa</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+>>>>>>> ec9e7b0352ce1378c10c2c2226bb97a19dfb9f02
         <?php } ?>
     </div>
     <?php include_once('app/views/footer.php'); ?>

@@ -3,14 +3,33 @@
 </head>
 
 <body>
+<<<<<<< HEAD
     <?php include_once('app/views/header.php'); ?>
     <div class="logo text-center">
         <h1>Timetable Management</h1>
     </div>
+=======
+    <?php include_once('app/views/header.php'); session_start();?>
+>>>>>>> ec9e7b0352ce1378c10c2c2226bb97a19dfb9f02
     <div class="wrapper">
         <div class="inner-warpper text-center">
-            <h2 class="title">Login to your account</h2>
+            <h2 class="title">Đăng nhập</h2>
             <form action="" method="POST" id="formvalidate">
+                <?php
+                require_once('app/models/admin.php');
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    $username = $_POST['username'];
+                    $password = $_POST['password'];
+                    $user = Admin::login($username, $password);
+                    if ($user) {
+                        $_SESSION['username'] = $user->login_id;
+                        $_SESSION['last_active'] = date("Y-m-d H:i");
+                        header("Location: .");
+                    } else {
+                        echo "<script>alert('Sai tên đăng nhập hoặc mật khẩu!');</script>";
+                    }
+                }
+                ?>
                 <div class="input-group">
                     <label class="placeholder" for="userName">User Name</label>
                     <input class="form-control" name="username" id="username" type="text" placeholder="" value='' />
@@ -24,18 +43,12 @@
 
                 <button type="submit" id="login">Login</button>
                 <div class="clearfix supporter">
-                    <div class="pull-left remember-me">
-                        <input id="rememberMe" type="checkbox">
-                        <label for="rememberMe">Remember Me</label>
-                    </div>
                     <a class="forgot pull-right" href="./?controller=auth&action=request">Forgot Password?</a>
                 </div>
             </form>
         </div>
-        <div class="signup-wrapper text-center">
-            <a href="#"><i>Don't have an account?</i><span class="text-primary">Create One</span></a>
-        </div>
     </div>
+    <?php include_once('app/views/footer.php'); ?>
 
     <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js'></script>

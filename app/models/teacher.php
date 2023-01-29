@@ -26,7 +26,11 @@ class Teacher
   {
     $list = [];
     $db = DB::getInstance();
+<<<<<<< HEAD
     $req = $db->query('SELECT * FROM admins');
+=======
+    $req = $db->query('SELECT * FROM teachers');
+>>>>>>> ec9e7b0352ce1378c10c2c2226bb97a19dfb9f02
 
     foreach ($req->fetchAll() as $item) {
       $list[] = new Teacher($item['id'], $item['name'], $item['avatar'], $item['description'], $item['specialized'], $item['degree'], $item['updated'], $item['created']);
@@ -47,6 +51,22 @@ class Teacher
     return $list[0];
   }
 
+<<<<<<< HEAD
+=======
+  static function add($name, $specialized, $degree, $avatar, $description)
+  {
+    $db = DB::getInstance();
+    $req = $db->prepare('INSERT INTO teachers (name, specialized, degree, avatar, description, created, updated) VALUES (:name, :specialized, :degree, :avatar, :description, now(), now())');
+    $req->execute(array(
+      'name' => $name,
+      'specialized' => $specialized,
+      'degree' => $degree,
+      'avatar' => $avatar,
+      'description' => $description
+    ));
+  }
+
+>>>>>>> ec9e7b0352ce1378c10c2c2226bb97a19dfb9f02
   static function update($id, $name, $specialized, $degree, $avatar, $description)
   {
     $db = DB::getInstance();
