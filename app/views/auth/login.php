@@ -3,14 +3,11 @@
 </head>
 
 <body>
-<<<<<<< HEAD
     <?php include_once('app/views/header.php'); ?>
     <div class="logo text-center">
         <h1>Timetable Management</h1>
     </div>
-=======
     <?php include_once('app/views/header.php'); session_start();?>
->>>>>>> ec9e7b0352ce1378c10c2c2226bb97a19dfb9f02
     <div class="wrapper">
         <div class="inner-warpper text-center">
             <h2 class="title">Đăng nhập</h2>
@@ -53,52 +50,52 @@
     <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js'></script>
     <script>
-        + function($) {
-            $('.placeholder').click(function() {
-                $(this).siblings('input').focus();
-            });
+    + function($) {
+        $('.placeholder').click(function() {
+            $(this).siblings('input').focus();
+        });
 
-            $('.form-control').focus(function() {
-                $(this).parent().addClass("focused");
-            });
+        $('.form-control').focus(function() {
+            $(this).parent().addClass("focused");
+        });
 
-            $('.form-control').blur(function() {
-                var $this = $(this);
-                if ($this.val().length == 0)
-                    $(this).parent().removeClass("focused");
-            });
-            $('.form-control').blur();
+        $('.form-control').blur(function() {
+            var $this = $(this);
+            if ($this.val().length == 0)
+                $(this).parent().removeClass("focused");
+        });
+        $('.form-control').blur();
 
-            // validetion
-            $.validator.setDefaults({
-                errorElement: 'span',
-                errorClass: 'validate-tooltip'
-            });
+        // validetion
+        $.validator.setDefaults({
+            errorElement: 'span',
+            errorClass: 'validate-tooltip'
+        });
 
-            $("#formvalidate").validate({
-                rules: {
-                    userName: {
-                        required: true,
-                        minlength: 3
-                    },
-                    password: {
-                        required: true,
-                        minlength: 6
-                    }
+        $("#formvalidate").validate({
+            rules: {
+                userName: {
+                    required: true,
+                    minlength: 3
                 },
-                messages: {
-                    userName: {
-                        required: "Please enter your username.",
-                        minlength: "Please provide valid username."
-                    },
-                    password: {
-                        required: "Enter your password to Login.",
-                        minlength: "Incorrect login or password."
-                    }
+                password: {
+                    required: true,
+                    minlength: 6
                 }
-            });
+            },
+            messages: {
+                userName: {
+                    required: "Please enter your username.",
+                    minlength: "Please provide valid username."
+                },
+                password: {
+                    required: "Enter your password to Login.",
+                    minlength: "Incorrect login or password."
+                }
+            }
+        });
 
-        }(jQuery);
+    }(jQuery);
     </script>
 
 </body>
