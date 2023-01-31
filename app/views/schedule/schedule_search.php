@@ -97,9 +97,9 @@
                     <?php for ($i = 0; $i < count($schedules); $i++) { ?>
                         <tr>
                             <th scope="row"><?= $i + 1 ?></th>
-                            <td><?= $schedules[$i]->school_year ?></td>
-                            <td><?= $schedules[$i]->subject_id ?></td>
-                            <td><?= $schedules[$i]->teacher_id ?></td>
+                            <td><?= 'Năm ' . $schedules[$i]->school_year ?></td>
+                            <td><?= Subject::get($schedules[$i]->subject_id)->description ?></td>
+                            <td><?= Teacher::get($schedules[$i]->teacher_id)->name ?></td>
                             <td><?= $schedules[$i]->week_day ?></td>
                             <td><?= $schedules[$i]->lesson ?></td>
                             <td class="text-center">
