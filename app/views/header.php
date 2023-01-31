@@ -1,5 +1,6 @@
 <?php
-function isSelected($controller) {
+function isSelected($controller)
+{
   if (isset($_GET['controller']) && $_GET['controller'] == $controller) {
     return 'text-secondary';
   }
@@ -20,15 +21,15 @@ function isSelected($controller) {
       session_start();
       if (!isset($_SESSION['username'])) {
       ?>
-      <div class="text-end">
-        <button type="button" class="btn btn-outline-light me-2" id="login">Đăng nhập</button>
-        <!-- <button type="button" class="btn btn-warning" disabled>Đăng ký</button> -->
-      </div>
+        <div class="text-end">
+          <button type="button" class="btn btn-outline-light me-2" id="login">Đăng nhập</button>
+          <!-- <button type="button" class="btn btn-warning" disabled>Đăng ký</button> -->
+        </div>
       <?php } else { ?>
-      <div class="text-end">
-        <button type="button" class="btn btn-outline-light me-2" id="login" disabled>Xin chào, <?= $_SESSION['username'] ?></button>
-        <button type="button" class="btn btn-warning" id="logout">Đăng xuất</button>
-      </div>
+        <div class="text-end">
+          <button type="button" class="btn btn-outline-light me-2" id="login" disabled>Xin chào, <?= $_SESSION['username'] ?></button>
+          <button type="button" class="btn btn-warning" id="logout">Đăng xuất</button>
+        </div>
       <?php } ?>
     </div>
   </div>

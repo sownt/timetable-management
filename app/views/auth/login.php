@@ -72,7 +72,7 @@
                 rules: {
                     userName: {
                         required: true,
-                        minlength: 3
+                        minlength: 4
                     },
                     password: {
                         required: true,

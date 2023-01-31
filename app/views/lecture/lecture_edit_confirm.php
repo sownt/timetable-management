@@ -41,11 +41,12 @@
             <?php
             require_once('app/models/subject.php');
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $id = $_GET['id'];
                 $name = $_SESSION['name'];
                 $school_year = $_SESSION['school_year'];
                 $description = $_SESSION['description'];
                 $target_file = $_SESSION['avatar'];
-                Subject::update($id, $name, $school_year, $description, $target_file);
+                Subject::update($id, $name, $target_file, $description, $school_year);
                 header("Location: ./?controller=lecture&action=update_complete");
             }
             ?>

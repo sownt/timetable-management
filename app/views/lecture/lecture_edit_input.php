@@ -155,7 +155,7 @@
                 }
 
                 if ($valid) {
-                    header("Location: ./?controller=lecture&action=update_confirm");
+                    header("Location: ./?controller=lecture&action=update_confirm&id=" . $current_lecture->id);
                 }
             }
             ?>
