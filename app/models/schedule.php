@@ -54,8 +54,16 @@ class Schedule
   static function add($school_year, $subject_id, $teacher_id, $week_day, $lesson, $notes)
   {
     $db = DB::getInstance();
-    $req = $db->prepare('INSERT INTO schedules (school_year, subject_id, teacher_id, week_day, lesson, notes) VALUES (:school_year, :subject_id, :teacher_id, :week_day, :lesson, :notes)');
-    $req->execute(array('school_year' => $school_year, 'subject_id' => $subject_id, 'teacher_id' => $teacher_id, 'week_day' => $week_day, 'lesson' => $lesson, 'notes' => $notes));
+    $req = $db->prepare('INSERT INTO schedules (school_year, subject_id, teacher_id, week_day, lesson, notes, created, updated) 
+                          VALUES (:school_year, :subject_id, :teacher_id, :week_day, :lesson, :notes,now(),now())');
+    return $req->execute(array(
+      'school_year' => $school_year,
+      'subject_id' => $subject_id,
+      'teacher_id' => $teacher_id,
+      'week_day' => $week_day,
+      'lesson' => $lesson,
+      'notes' => $notes
+    ));
   }
 
   static function update($id, $school_year, $subject_id, $teacher_id, $week_day, $lesson, $notes)
