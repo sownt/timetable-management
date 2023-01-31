@@ -134,26 +134,12 @@ $teachers = Teacher::all();
 
             // Check if form is submitted
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $name = $target_file = $school_year = "";
+                $school_year = $subject_id = $teacher_id = $week_day = $lession = $note = "";
                 $valid = true;
 
-                // Validate name
-                if (isset($_POST['lecture-name']) && $valid) {
-                    $name = $_POST['lecture-name'];
-                    $_SESSION['name'] = $name;
-                    if (strlen($name) == 0) {
-                        onError("Hãy nhập tên môn học.");
-                        $valid = false;
-                    }
-                    if (strlen($name) > 100) {
-                        onError("Không nhập quá 100 ký tự.");
-                        $valid = false;
-                    }
-                }
-
                 // Validate school year
-                if (isset($_POST['school-year']) && $valid) {
-                    $school_year = $_POST['school-year'];
+                if (isset($_POST['school_year']) && $valid) {
+                    $school_year = $_POST['school_year'];
                     $_SESSION['school_year'] = $school_year;
                     if ($school_year == 0) {
                         onError("Hãy nhập khóa học.");
@@ -161,63 +147,59 @@ $teachers = Teacher::all();
                     }
                 }
 
-                // Validate description
-                if (isset($_POST['description']) && $valid) {
-                    $description = $_POST['description'];
-                    $_SESSION['description'] = $description;
-                    if (strlen($description) == 0) {
-                        onError("Hãy nhập mô tả chi tiết.");
-                        $valid = false;
-                    }
-                    if (strlen($description) > 1000) {
-                        onError("Không nhập quá 1000 ký tự.");
+                // Validate subject 
+                if (isset($_POST['subject_id']) && $valid) {
+                    $subject_id = $_POST['subject_id'];
+                    $_SESSION['subject_id'] = $subject_id;
+                    if ($subject_id == 0) {
+                        onError("Hãy nhập môn học.");
                         $valid = false;
                     }
                 }
 
-                if ($valid) {
-                    if ($_FILES["avatar"]["size"] > 0) {
-                        $target_dir = "web/uploads/";
-                        $uploaded = pathinfo($_FILES["avatar"]["name"]);
-                        $target_file = $target_dir . $uploaded['filename'] . "_" . date("YmdHis") . "." . $uploaded['extension'];
-                        $uploadOk = 1;
-                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-                        $check = getimagesize($_FILES["avatar"]["tmp_name"]);
-
-                        // Create uploads folder if not exists
-                        if (!is_dir($target_dir)) {
-                            if (!@mkdir($target_dir, 0777, true)) {
-                                $error = error_get_last();
-                                $valid = false;
-                            }
-                        }
-
-                        if ($check !== false) {
-                            $uploadOk = 1;
-                        } else {
-                            $valid = false;
-                            $uploadOk = 0;
-                        }
-
-
-                        if ($uploadOk != 0 && $valid) {
-                            echo "<script>console.log(\"" . $target_file . "\")</script>";
-                            if (@move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file)) {
-                                echo "<script>console.log(\"The file " . htmlspecialchars(basename($_FILES["avatar"]["name"])) . " has been uploaded.\")</script>";
-                                $_SESSION['avatar'] = $target_file;
-                            } else {
-                                $valid = false;
-                                echo "<script>console.log(\"Sorry, there was an error uploading your file.\")</script>";
-                            }
-                        }
-                    } else {
-                        onError("Hãy chọn avatar.");
+                // Validate teacher
+                if (isset($_POST['teacher_id']) && $valid) {
+                    $teacher_id = $_POST['teacher_id'];
+                    $_SESSION['teacher_id'] = $teacher_id;
+                    if ($teacher_id == 0) {
+                        onError("Hãy nhập giảng viên.");
                         $valid = false;
                     }
                 }
 
+                // Validate week day
+                if (isset($_POST['week_day_id']) && $valid) {
+                    $week_day = $_POST['week_day_id'];
+                    $_SESSION['week_day'] = $week_day;
+                    if ($week_day == 0) {
+                        onError("Hãy nhập thứ.");
+                        $valid = false;
+                    }
+                }
+
+                // Validate lession
+                if (isset($_POST['lession_id']) && $valid) {
+                    $l = $_POST['lession_id'];
+                    $lession = '';
+                    foreach ($l as $lession_id) {
+                        $lession .= $lession_id . ',';
+                    }
+                    $_SESSION['lession'] = $lession;
+                    if ($lession == 0) {
+                        onError("Hãy nhập tiết.");
+                        $valid = false;
+                    }
+                }
+
+                // Validate note
+                if (isset($_POST['note']) && $valid) {
+                    $note = $_POST['note'];
+                    $_SESSION['note'] = $note;
+                }
+
                 if ($valid) {
-                    header("Location: ./?controller=lecture&action=register_confirm");
+                    Schedule::update($_GET['id'], $school_year, $subject_id, $teacher_id, $week_day, $lession, $note);
+                    header("Location: ./?controller=schedule&action=update_complete");
                 }
             }
             ?>

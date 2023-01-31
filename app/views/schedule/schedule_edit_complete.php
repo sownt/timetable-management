@@ -16,7 +16,7 @@
             <div class="center">
                 <div class="complete">
                     <div>Bạn đã đăng ký thành công</div>
-                    <div><a href="">Trở về trang chủ</a></div>
+                    <div><a href=".">Trở về trang chủ</a></div>
                 </div>
             </div>
         </form>
