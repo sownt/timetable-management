@@ -5,6 +5,13 @@
         justify-content: center;
         align-items: center;">
         <form method="POST">
+            <?php
+            require_once('app/models/admin.php');
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $username = $_POST['login_id'];
+                Admin::reset($username);
+            }
+            ?>
             <div>
                 <label>Người dùng</label>
                 <input style="margin-left: 10px;" type="text" name="login_id" id="">

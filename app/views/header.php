@@ -26,7 +26,7 @@ function isSelected($controller) {
       </div>
       <?php } else { ?>
       <div class="text-end">
-        <button type="button" class="btn btn-outline-light me-2" id="login">Xin chào, <?= $_SESSION['username'] ?></button>
+        <button type="button" class="btn btn-outline-light me-2" id="login" disabled>Xin chào, <?= $_SESSION['username'] ?></button>
         <button type="button" class="btn btn-warning" id="logout">Đăng xuất</button>
       </div>
       <?php } ?>
@@ -36,5 +36,8 @@ function isSelected($controller) {
 <script type="text/javascript">
   document.getElementById("login").onclick = function() {
     window.location.href = location.protocol + '//' + location.host + location.pathname + "?controller=auth&action=login";
+  };
+  document.getElementById("logout").onclick = function() {
+    window.location.href = location.protocol + '//' + location.host + location.pathname + "?controller=auth&action=logout";
   };
 </script>

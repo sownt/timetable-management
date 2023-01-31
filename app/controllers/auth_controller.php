@@ -13,6 +13,12 @@ class AuthController extends BaseController
         );
         $this->render(file: 'login', data: $data);
     }
+    function logout()
+    {
+        session_start();
+        unset($_SESSION['username']);
+        header('Location: ./?controller=auth&action=login');
+    }
     function reset()
     {
         $data = array(

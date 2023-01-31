@@ -45,4 +45,30 @@ class Admin
     }
     return null;
   }
+  static function reset($login_id)
+  {
+    $db = DB::getInstance();
+    $req = $db->prepare('UPDATE admins SET reset_password_token = :reset_password_token WHERE login_id = :login_id');
+    $req->execute(array('reset_password_token' => md5($login_id), 'login_id' => $login_id));
+    return null;
+  }
+  static function resetList()
+  {
+    $list = [];
+    $db = DB::getInstance();
+    $req = $db->query('SELECT * FROM admins WHERE reset_password_token IS NOT NULL');
+
+    foreach ($req->fetchAll() as $item) {
+      $list[] = new Admin($item['id'], $item['login_id'], $item['password'], $item['activated_flag'], $item['reset_password_token'], $item['updated'], $item['created']);
+    }
+
+    return $list;
+  }
+  static function newPassword($login_id, $newPassword)
+  {
+    $db = DB::getInstance();
+    $req = $db->prepare('UPDATE admins SET reset_password_token = :reset_password_token, password = :password WHERE login_id = :login_id');
+    $req->execute(array('reset_password_token' => '', 'password' => $newPassword, 'login_id' => $login_id));
+    return null;
+  }
 }

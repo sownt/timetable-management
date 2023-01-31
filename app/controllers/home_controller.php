@@ -15,4 +15,8 @@ class HomeController extends BaseController
         );
         $this->render(data: $data);
     }
+    function error()
+    {
+        $this->render('error');
+    }
 }

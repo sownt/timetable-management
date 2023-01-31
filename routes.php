@@ -1,6 +1,6 @@
 <?php
 $controllers = array(
-    'auth' => ['login', 'reset', 'request'],
+    'auth' => ['login', 'reset', 'request', 'logout'],
     'home' => ['display', 'error'],
     'lecture' => ['search', 'register', 'register_confirm', 'register_complete', 'update', 'update_confirm', 'update_complete'],
     'schedule' => ['search', 'register', 'register_confirm', 'register_complete', 'update', 'update_confirm', 'update_complete'],

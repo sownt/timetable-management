@@ -1,12 +1,20 @@
 <body>
-    <?php include_once('app/views/header.php');
-    session_start(); ?>
+    <?php
+    include_once('app/views/header.php');
+    session_start();
+    require_once('app/models/schedule.php');
+    require_once('app/models/teacher.php');
+    require_once('app/models/subject.php');
+    $teachers = Teacher::all();
+    $lectures = Subject::all();
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL); ?>
     <div class="container p-5">
         <form method="POST" enctype="multipart/form-data" class="mb-5">
             <div class="text-center mb-5">
                 <h1>Tìm kiếm TKB</h1>
             </div>
-
             <div class="row mb-3">
                 <label for="" class="col-sm-2 col-form-label">Khóa</label>
                 <div class="col-sm-10">
@@ -23,11 +31,10 @@
                 <label for="" class="col-sm-2 col-form-label">Môn học</label>
                 <div class="col-sm-10">
                     <select class="form-select" aria-label="Default select example" name="school-year">
-                        <option selected>Chọn khóa</option>
-                        <option value="1">Năm 1</option>
-                        <option value="2">Năm 2</option>
-                        <option value="3">Năm 3</option>
-                        <option value="3">Năm 4</option>
+                        <option selected>Chọn môn học</option>
+                        <?php foreach ($lectures as $lecture) { ?>
+                            <option value="<?= $lecture->id ?>"><?= $lecture->description ?></option>
+                        <?php } ?>
                     </select>
                 </div>
             </div>
@@ -36,19 +43,13 @@
                 <div class="col-sm-10">
                     <select class="form-select" aria-label="Default select example" name="school-year">
                         <option selected>Chọn khóa</option>
-                        <option value="1">Năm 1</option>
-                        <option value="2">Năm 2</option>
-                        <option value="3">Năm 3</option>
-                        <option value="3">Năm 4</option>
+                        <?php foreach ($teachers as $teacher) { ?>
+                            <option value="<?= $teacher->id ?>"><?= $teacher->name ?></option>
+                        <?php } ?>
                     </select>
                 </div>
             </div>
             <?php
-            require_once('app/models/schedule.php');
-            ini_set('display_errors', 1);
-            ini_set('display_startup_errors', 1);
-            error_reporting(E_ALL);
-
             /**
              * Display error message
              *

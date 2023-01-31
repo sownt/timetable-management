@@ -1,5 +1,9 @@
 <?php
-class BaseController
+/**
+ * @author  Tran Thai Son
+ * 
+ */
+abstract class BaseController
 {
   protected $folder; 
   function render($file = 'index', $data = array())
