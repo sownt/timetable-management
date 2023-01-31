@@ -8,6 +8,7 @@
     $id = 0; $teacher = null;
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
+        $_SESSION['id'] = $id;
         $teacher = Teacher::get($id);
     } else {
         header("Location: ./?controller=teacher&action=register");
@@ -181,7 +182,7 @@
                 }
 
                 if ($valid) {
-                    header("Location: ./?controller=teacher&action=register_confirm");
+                    header("Location: ./?controller=teacher&action=update_confirm");
                 }
             }
             ?>

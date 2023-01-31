@@ -3,6 +3,18 @@
     session_start(); ?>
     <div class="container p-5">
         <form method="POST" enctype="multipart/form-data">
+            <?php
+            require_once('app/models/teacher.php');
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
+
+            // Check if form is submitted
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                Teacher::update($_SESSION['id'], $_SESSION['fullName'], $_SESSION['specialized'], $_SESSION['degree'], $_SESSION['avatar'], $_SESSION['description']);
+                header("Location: ./?controller=teacher&action=update_complete");
+            }
+            ?>
             <div class="text-center mb-5">
                 <h1>Thêm mới giáo viên</h1>
             </div>
@@ -56,18 +68,6 @@
                     <textarea class="form-control" id="description" name="description" rows="3"><?= $_SESSION['description'] ?></textarea>
                 </div>
             </div>
-            <?php
-            require_once('app/models/teacher.php');
-            ini_set('display_errors', 1);
-            ini_set('display_startup_errors', 1);
-            error_reporting(E_ALL);
-
-            // Check if form is submitted
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                Teacher::add($_SESSION['fullName'], $_SESSION['specialized'], $_SESSION['degree'], $_SESSION['avatar'], $_SESSION['description']);
-                header("Location: ./?controller=teacher&action=register_complete");
-            }
-            ?>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Xác nhận</button>
             </div>
